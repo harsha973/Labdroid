@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">LabApp</string>
+    <string name="custom_components">Custom Components</string>
+
+    <string-array name="main">
+        <item>Junk frag (Test purpose)</item>
+        <item>Custom components</item>
+    </string-array>
+
+    <string-array name="custom_components">
+        <item>FB style chat profile pic</item>
+        <item>FB style chat profile pic with intials</item>
+    </string-array>
+</resources>

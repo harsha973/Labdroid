@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sha.com.ind.labapp.custom.components.CircleLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/profile_pic_size"
+    android:layout_height="@dimen/profile_pic_size"
+    android:orientation="horizontal"
+    custom:diameter="@dimen/profile_pic_size"
+    android:layout_gravity="center"
+    >
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/iv_left"
+        />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/margin_extra_short"
+        >
+        <ImageView
+            android:layout_width="@dimen/profile_pic_size_half"
+            android:layout_height="@dimen/profile_pic_size_half"
+            android:id="@+id/iv_top_right"
+            />
+        <ImageView
+            android:layout_marginTop="@dimen/margin_extra_short"
+            android:layout_width="@dimen/profile_pic_size_half"
+            android:layout_height="@dimen/profile_pic_size_half"
+            android:id="@+id/iv_bottom_right"
+            />
+    </LinearLayout>
+
+</sha.com.ind.labapp.custom.components.CircleLinearLayout>
