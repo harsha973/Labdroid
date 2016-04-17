@@ -5,7 +5,8 @@
 
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#FFD38C38</color>
+    <color name="colorAccentDisabled">#80D38C38</color>
 
     <color name="grey_dark">#3F3F3F</color>
     <color name="grey_medium">#808080</color>

@@ -1,11 +1,5 @@
 package sha.com.ind.labapp.customcomponents.fragments;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -19,7 +13,6 @@ import android.widget.ImageView;
 import sha.com.ind.labapp.R;
 import sha.com.ind.labapp.base.BaseFragment;
 import sha.com.ind.labapp.utils.ComponentUtils;
-import sha.com.ind.labapp.utils.FieldUtils;
 import sha.com.ind.labapp.utils.GlideUtils;
 
 /**

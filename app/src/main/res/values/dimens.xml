@@ -12,11 +12,29 @@
     <dimen name="margin_short">6dp</dimen>
     <dimen name="margin_extra_short">4dp</dimen>
 
+    <!--padding-->
+    <dimen name="padding_extra_double">48dp</dimen>
+    <dimen name="padding_double">32dp</dimen>
+    <dimen name="padding_standard">16dp</dimen>
+    <dimen name="padding_half">8dp</dimen>
+    <dimen name="padding_short">6dp</dimen>
+    <dimen name="padding_extra_short">4dp</dimen>
+
     <dimen name="line_spacing">2dp</dimen>
 
     <dimen name="font_size_large">20sp</dimen>
     <dimen name="font_size_medium">16sp</dimen>
     <dimen name="font_size_small">14sp</dimen>
     <dimen name="font_size_xlarge">24sp</dimen>
+
+    <!--Button-->
+    <!--These values are adapted from google material guidelines-->
+    <dimen name="button_min_width">88dp</dimen>
+    <dimen name="button_height">36dp</dimen>
+    <!--button_corner should be half of button_height-->
+    <dimen name="button_corner">18dp</dimen>
+
+    <!--Other-->
+    <dimen name="progress_bar_default_height">24dp</dimen>
 
 </resources>

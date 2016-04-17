@@ -48,6 +48,11 @@ public class CustomComponentsFragment extends BaseListFragment {
             case 1 :
                 getFragmentManager().beginTransaction().replace(R.id.container, FBStyleProfilePicWithIntialsFragment.getInstance()).addToBackStack(null).commit();
                 break;
+
+            //  Countdown timer button fragment
+            case 2 :
+                getFragmentManager().beginTransaction().replace(R.id.container, CoundownTimerButtonFragment.getInstance()).addToBackStack(null).commit();
+                break;
         }
     }
 }

@@ -11,6 +11,7 @@ import sha.com.ind.labapp.customcomponents.CustomComponentsActivity;
 import sha.com.ind.labapp.dump.JunkFragment;
 import sha.com.ind.labapp.home.adapters.GenericListAdapter;
 import sha.com.ind.labapp.manager.IntentManager;
+import sha.com.ind.labapp.media.MediaActivity;
 
 
 /**
@@ -50,6 +51,11 @@ public class HomeFragment extends BaseListFragment{
             //  Custom components
             case 1 :
                 IntentManager.startActivity(getActivity() , CustomComponentsActivity.class);
+                break;
+
+            // Media
+            case 2 :
+                IntentManager.startActivity(getActivity() , MediaActivity.class);
                 break;
         }
     }

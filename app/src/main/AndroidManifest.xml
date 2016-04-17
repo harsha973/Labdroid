@@ -2,6 +2,8 @@
     package="sha.com.ind.labapp">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
@@ -20,6 +22,19 @@
 
         <activity android:name=".customcomponents.CustomComponentsActivity"
             android:label="@string/custom_components"/>
+
+        <activity android:name=".media.MediaActivity"
+            android:label="@string/media"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="sha.com.ind.labapp.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
 
     </application>
 
