@@ -20,6 +20,7 @@ import sha.com.ind.labapp.utils.GlideUtils;
  */
 public class FBStyleProfilePicWithIntialsFragment extends BaseFragment {
 
+    public static final String TAG = FBStyleProfilePicWithIntialsFragment.class.getSimpleName();
     private ImageView mLeftIV;
     private ImageView mTopRightIV;
     private ImageView mBottomRightIV;
@@ -61,7 +62,7 @@ public class FBStyleProfilePicWithIntialsFragment extends BaseFragment {
         Drawable topRightErrorPlaceHolder = getPlaceHolderTopRight(ComponentUtils.getIntials("Matt Dammon"));
         Drawable bottomRightErrorPlaceHolder = getPlaceHolderBottomRight(ComponentUtils.getIntials("Will Smith"));
 
-        ColorDrawable placeholder = new ColorDrawable(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+        ColorDrawable placeholder = new ColorDrawable(ContextCompat.getColor(getActivity(), R.color.accent));
 
         GlideUtils.loadWithGlideCenterCrop(getActivity(), kiwiurl, mLeftIV, leftErrorPlaceHolder, placeholder);
         GlideUtils.loadWithGlideCenterCrop(getActivity(), caturl, mTopRightIV, topRightErrorPlaceHolder, placeholder);

@@ -5,9 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import sha.com.ind.labapp.R;
+import sha.com.ind.labapp.base.BaseActivity;
 import sha.com.ind.labapp.customcomponents.fragments.CustomComponentsFragment;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
 
     private static final String TAG = HomeActivity.class.getSimpleName();
 
@@ -16,8 +17,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generic);
 
+        setupActionBar(R.string.app_name);
+
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.container, HomeFragment.getInstance())
+                .add(R.id.fragment_container, HomeFragment.getInstance())
                 .commit();
     }
 

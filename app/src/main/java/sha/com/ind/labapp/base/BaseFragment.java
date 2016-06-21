@@ -83,4 +83,18 @@ public class BaseFragment extends Fragment {
             }
         }
     }
+
+    /**
+     * Back pressed for the Fragment. Override this method in child classes of needed.
+     *
+     * @return  False, if it can be passed to activity to handle.
+     * True, if fragment handled backpress
+     *
+     * <p><b>Note</b></p> Its not good to have logic in back pressed as it may lag user to navigate back.
+     * But in some cases we have to handle. No other option :(
+     */
+    public boolean onBackPressed()
+    {
+        return false;
+    }
 }

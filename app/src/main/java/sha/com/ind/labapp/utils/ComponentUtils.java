@@ -35,7 +35,7 @@ public class ComponentUtils {
         Bitmap b = Bitmap.createBitmap(drawableSize, drawableSize, Bitmap.Config.ARGB_8888);
         Paint paint = new Paint();
         paint.setTextAlign(Paint.Align.CENTER);
-        paint.setColor(ContextCompat.getColor(context, R.color.colorAccent));
+        paint.setColor(ContextCompat.getColor(context, R.color.accent));
         paint.setStyle(Paint.Style.FILL);
 
         Canvas c = new Canvas(b);

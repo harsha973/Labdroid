@@ -1,11 +1,9 @@
-package sha.com.ind.labapp.dump;
+package sha.com.ind.labapp.dump.fragments;
 
 import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -14,19 +12,22 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.net.Uri;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.text.Html;
+import android.text.Layout;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.AlignmentSpan;
+import android.text.style.StyleSpan;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
@@ -38,42 +39,43 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
-import com.kbeanie.multipicker.api.CameraImagePicker;
-import com.kbeanie.multipicker.api.ImagePicker;
-import com.kbeanie.multipicker.api.Picker;
-import com.kbeanie.multipicker.api.callbacks.ImagePickerCallback;
-import com.kbeanie.multipicker.api.entity.ChosenImage;
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.squareup.picasso.Picasso;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.sufficientlysecure.htmltextview.HtmlLocalImageGetter;
+import org.sufficientlysecure.htmltextview.HtmlTagHandler;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.List;
-import java.util.UUID;
+import java.io.IOException;
+import java.io.InputStream;
 
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 import sha.com.ind.labapp.R;
 import sha.com.ind.labapp.base.BaseFragment;
 import sha.com.ind.labapp.custom.components.CountDownTimerButton;
-import sha.com.ind.labapp.custom.components.touchabletextview.TouchableTextView;
 import sha.com.ind.labapp.custom.transformations.CropSemiCircleGlideTransformation;
+import sha.com.ind.labapp.dump.HexDrawable;
 
 /**
  * Created by sreepolavarapu on 18/12/15.
  */
-public class JunkFragment extends BaseFragment implements ActivityCompat.OnRequestPermissionsResultCallback{
+public class JunkFragment extends BaseFragment implements ActivityCompat.OnRequestPermissionsResultCallback {
 
 //    FragmentMainBinding fragmentMainBinding;
 
     // permission request codes need to be < 256
     private static final int RC_HANDLE_CAMERA_PERM = 2;
-    private static final String TAG = JunkFragment.class.getSimpleName();
+    public static final String TAG = JunkFragment.class.getSimpleName();
+
     Button camera;
     Button imagechooser;
 
-    public static JunkFragment getInstance()
-    {
+    public static JunkFragment getInstance() {
         return new JunkFragment();
     }
 
@@ -81,16 +83,15 @@ public class JunkFragment extends BaseFragment implements ActivityCompat.OnReque
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_junk, container, false);
 
-        camera = (Button)view.findViewById(R.id.btn_camera);
-        imagechooser = (Button)view.findViewById(R.id.btn_choose_pic);
+        camera = (Button) view.findViewById(R.id.btn_camera);
+        imagechooser = (Button) view.findViewById(R.id.btn_choose_pic);
         return view;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-//
-        ((ImageView)getView().findViewById(R.id.iv_hex_drawable)).setImageDrawable(new HexDrawable());
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ((ImageView) getView().findViewById(R.id.iv_hex_drawable)).setImageDrawable(new HexDrawable());
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,6 +118,7 @@ public class JunkFragment extends BaseFragment implements ActivityCompat.OnReque
 //
 //        fragmentMainBinding.setUser(user);
 
+        htmlTextViewJunk();
         glideJunk();
         linkTextJunk();
 //        new UploadImageAsyncTask().execute();
@@ -125,25 +127,114 @@ public class JunkFragment extends BaseFragment implements ActivityCompat.OnReque
         circleProgressTimerJunk();
     }
 
+
+    /**
+     * Testing HTML textview :(
+     */
+    private void htmlTextViewJunk() {
+        if (getView() != null) {
+
+            TextView textView = (TextView) getView().findViewById(R.id.textview_test);
+//            HtmlTextView htmlTextView = (HtmlTextView)getView().findViewById(R.id.html_textview);
+//            JustifiedTextView justifiedTextView = (JustifiedTextView)getView().findViewById(R.id.justified_textview);
+//            DocumentView documentView = (DocumentView) getView().findViewById(R.id.document_textview);
+//            htmlTextView.setHtmlFromRawResource(getContext(), R.raw.paraalign, new HtmlTextView.LocalImageGetter());
+//            htmlTextView.setHtmlFromRawResource(getContext(), R.raw.paraalign, new HtmlTextView.LocalImageGetter());
+
+            String rawText = readTextFile(R.raw.paraalign);
+            Spanned spanned = Html.fromHtml(rawText, new HtmlLocalImageGetter(getActivity()), new HtmlTagHandler());
+            String htmlText = Html.toHtml(spanned);
+
+            textView.setText(parseData(rawText));
+//            htmlTextView.setText(htmlText);
+//            justifiedTextView.setText(Html.fromHtml(rawText));
+//            documentView.setText(Html.fromHtml(rawText));
+
+        }
+    }
+
+    private SpannableString parseData(String data) {
+        Document rootNode = Jsoup.parse(data);
+
+        Elements elements = rootNode.getAllElements();
+        int elementsSize = elements.size();
+        for (int index = 0; index < elementsSize; index++) {
+            Element element = elements.get(index);
+            switch (element.tagName()) {
+                case "div":
+                case "p":
+                    String value = element.data();
+                    Elements childElemets = element.children();
+//                    return paraSpan(childElemets, );
+                case "i":
+                    value = element.data();
+
+            }
+        }
+
+        return new SpannableString("para");
+
+    }
+
+    private SpannableString parseData(Elements elements, SpannableString spannableString) {
+        for (int index = 0; index < elements.size(); index++) {
+            Element element = elements.get(index);
+            switch (element.tagName()) {
+                case "div":
+                case "p":
+                    String value = element.data();
+
+                    return paraSpan("sdfadf");
+                case "i":
+                    value = element.data();
+//                    return
+
+            }
+        }
+
+        return new SpannableString("para");
+
+    }
+
+
+    private SpannableString paraSpan(String para) {
+        SpannableString spannableString = new SpannableString(para);
+        spannableString.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_OPPOSITE), 0, para.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new StyleSpan(Typeface.ITALIC), 0, para.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannableString;
+    }
+
+    private SpannableString paraSpan(SpannableString spannableString, int style) {
+        spannableString.setSpan(new StyleSpan(style), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannableString;
+    }
+
+    public String readTextFile(int rawResID) {
+
+        InputStream inputStream = getResources().openRawResource(rawResID); // getting XML
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        byte buf[] = new byte[1024];
+        int len;
+        try {
+            while ((len = inputStream.read(buf)) != -1) {
+                outputStream.write(buf, 0, len);
+            }
+            outputStream.close();
+            inputStream.close();
+        } catch (IOException e) {
+
+        }
+        return outputStream.toString();
+    }
+
+
     /**
      * Play with glide in this method
      */
-    private void glideJunk()
-    {
-//        RoundedImageView glideIV = (RoundedImageView) getView().findViewById(R.id.iv_glide);
-//
-//        CropSemiCircleGlideTransformation transform1 = new CropSemiCircleGlideTransformation(getActivity());
-//
-//        Glide.with(getActivity()).load(R.drawable.background_border_round_rect)//"http://goo.gl/gEgYUd")
-//                .placeholder(R.drawable.news_selectedairforceyellow)
-////                .transform(new CircleTransform(getActivity()))
-//                .bitmapTransform(transform1)
-//                .into(glideIV);
-
-//        glideIV.setBorderWidth(0.0f);
-
-        if(getView() != null)
-        {
+    private void glideJunk() {
+        if (getView() != null) {
 //            Glide.get(getActivity()).clearDiskCache();
 //            Glide.get(getActivity()).clearMemory();
 
@@ -166,11 +257,9 @@ public class JunkFragment extends BaseFragment implements ActivityCompat.OnReque
     /**
      * Play with custom view glide in this method
      */
-    private void customGlideIV()
-    {
+    private void customGlideIV() {
 
-        if(getView() != null)
-        {
+        if (getView() != null) {
 //            RoundedImageView imageView = (RoundedImageView) getView().findViewById(R.id.iv_group);
 
 //            Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
@@ -194,6 +283,9 @@ public class JunkFragment extends BaseFragment implements ActivityCompat.OnReque
 
     }
 
+    /**
+    * Created by sreepolavarapu on 15/06/16.
+    */
     private class UploadImageAsyncTask extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -237,16 +329,16 @@ public class JunkFragment extends BaseFragment implements ActivityCompat.OnReque
 
             Canvas canvas = new Canvas(drawnBitmap);
             // JUST CHANGE TO DIFFERENT Bitmaps and coordinates .
-//            canvas.drawBitmap(bitmap, 0, 0, null);
-//            canvas.drawBitmap(b2, 0, 0, null);
+    //            canvas.drawBitmap(bitmap, 0, 0, null);
+    //            canvas.drawBitmap(b2, 0, 0, null);
             //for more images :
             // canvas.drawBitmap(b3, 0, 0, null);
             // canvas.drawBitmap(b4, 0, 0, null);
 
             Paint paint = new Paint();
-//            paint.setColor(Color.GRAY);
-//            paint.setStrokeWidth(2);
-//            paint.setStyle(Paint.Style.STROKE);
+    //            paint.setColor(Color.GRAY);
+    //            paint.setStrokeWidth(2);
+    //            paint.setStyle(Paint.Style.STROKE);
             BitmapShader shader =
                     new BitmapShader(bmp1, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP);
             if (width != 0 || height != 0) {
@@ -266,14 +358,14 @@ public class JunkFragment extends BaseFragment implements ActivityCompat.OnReque
 
             canvas.drawBitmap(bmp1, srcRect, destRect, paint);
 
-//            canvas.drawLine(drawnBitmap.getWidth()/2f, 0f, drawnBitmap.getWidth()/2f, (float) drawnBitmap.getHeight(), paint);
+    //            canvas.drawLine(drawnBitmap.getWidth()/2f, 0f, drawnBitmap.getWidth()/2f, (float) drawnBitmap.getHeight(), paint);
 
             //  Draw second bitmap
             destRect = new Rect(b2.getWidth()/2 + 1, 0,
                     b2.getWidth() + b2.getWidth()/2, b2.getHeight()/2);
             canvas.drawBitmap(b2, srcRect, destRect, paint);
 
-//            canvas.drawLine(drawnBitmap.getWidth()/2f, drawnBitmap.getHeight()/2, drawnBitmap.getWidth(), (float) drawnBitmap.getHeight()/2, paint);
+    //            canvas.drawLine(drawnBitmap.getWidth()/2f, drawnBitmap.getHeight()/2, drawnBitmap.getWidth(), (float) drawnBitmap.getHeight()/2, paint);
 
             //  Draw third bitmap
             srcRect = new Rect(b3.getWidth()/4, b3.getHeight()/4, b3.getWidth() * 3/4,  b3.getHeight() * 3/4);
@@ -290,6 +382,9 @@ public class JunkFragment extends BaseFragment implements ActivityCompat.OnReque
         return drawnBitmap;
     }
 
+    /**
+    * Created by sreepolavarapu on 15/06/16.
+    */
     public static class CircleTransform extends BitmapTransformation {
 
         public CircleTransform(Context context) {
@@ -443,77 +538,77 @@ public class JunkFragment extends BaseFragment implements ActivityCompat.OnReque
         timer.start();
     }
 
-//    ImagePicker imagePicker;
-//    private void imageChooserJunk()
-//    {
-//
-//        View view = getView();
-//        final ImageView imageChooserIV = (ImageView)view.findViewById(R.id.iv_image_chooser);
-//
-//        imagePicker = new ImagePicker(this);
-//        imagePicker.setImagePickerCallback(
-//                new ImagePickerCallback() {
-//                    @Override
-//                    public void onImagesChosen(List<ChosenImage> images) {
-//                        // Display images
-//                        String path = images.get(0).getOriginalPath();
-//                        Picasso.with(getContext()).load(new File(path)).into(imageChooserIV);
-//                    }
-//
-//                    @Override
-//                    public void onError(String message) {
-//                        // Do error handling
-//                    }
-//                }
-//        );
-//
-//        imagePicker.pickImage();
-//    }
-//
-//    CameraImagePicker cameraImagePicker;
-//    private String outPath;
-//    private void cameraImageChooserJunk()
-//    {
-//
-//        View view = getView();
-//        final ImageView imageChooserIV = (ImageView)view.findViewById(R.id.iv_image_chooser);
-//
-//        File file = new File(getContext().getFilesDir(), UUID.randomUUID()+"");
-//
-//        outPath = file.getPath();
-//        Bundle bundle = new Bundle();
-//        bundle.putString(MediaStore.EXTRA_OUTPUT, outPath);
-//        cameraImagePicker = new CameraImagePicker(this, outPath);
-////        cameraImagePicker.setExtras(bundle);
-//        cameraImagePicker.setImagePickerCallback(
-//                new ImagePickerCallback() {
-//                    @Override
-//                    public void onImagesChosen(List<ChosenImage> images) {
-//                        // Display images
-//                        String path = images.get(0).getOriginalPath();
-//                        Picasso.with(getContext()).load(new File(path)).into(imageChooserIV);
-//                    }
-//
-//                    @Override
-//                    public void onError(String message) {
-//                        // Do error handling
-//                    }
-//                }
-//        );
-//       cameraImagePicker.pickImage();
-//    }
-//
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if(resultCode == Activity.RESULT_OK) {
-//            if(requestCode == Picker.PICK_IMAGE_DEVICE) {
-//                imagePicker.submit(data);
-//            }
-//            else if(requestCode == Picker.PICK_IMAGE_CAMERA) {
-//                cameraImagePicker.submit(data);
-//            }
-//        }
-//    }
+    //    ImagePicker imagePicker;
+    //    private void imageChooserJunk()
+    //    {
+    //
+    //        View view = getView();
+    //        final ImageView imageChooserIV = (ImageView)view.findViewById(R.id.iv_image_chooser);
+    //
+    //        imagePicker = new ImagePicker(this);
+    //        imagePicker.setImagePickerCallback(
+    //                new ImagePickerCallback() {
+    //                    @Override
+    //                    public void onImagesChosen(List<ChosenImage> images) {
+    //                        // Display images
+    //                        String path = images.get(0).getOriginalPath();
+    //                        Picasso.with(getContext()).load(new File(path)).into(imageChooserIV);
+    //                    }
+    //
+    //                    @Override
+    //                    public void onError(String message) {
+    //                        // Do error handling
+    //                    }
+    //                }
+    //        );
+    //
+    //        imagePicker.pickImage();
+    //    }
+    //
+    //    CameraImagePicker cameraImagePicker;
+    //    private String outPath;
+    //    private void cameraImageChooserJunk()
+    //    {
+    //
+    //        View view = getView();
+    //        final ImageView imageChooserIV = (ImageView)view.findViewById(R.id.iv_image_chooser);
+    //
+    //        File file = new File(getContext().getFilesDir(), UUID.randomUUID()+"");
+    //
+    //        outPath = file.getPath();
+    //        Bundle bundle = new Bundle();
+    //        bundle.putString(MediaStore.EXTRA_OUTPUT, outPath);
+    //        cameraImagePicker = new CameraImagePicker(this, outPath);
+    ////        cameraImagePicker.setExtras(bundle);
+    //        cameraImagePicker.setImagePickerCallback(
+    //                new ImagePickerCallback() {
+    //                    @Override
+    //                    public void onImagesChosen(List<ChosenImage> images) {
+    //                        // Display images
+    //                        String path = images.get(0).getOriginalPath();
+    //                        Picasso.with(getContext()).load(new File(path)).into(imageChooserIV);
+    //                    }
+    //
+    //                    @Override
+    //                    public void onError(String message) {
+    //                        // Do error handling
+    //                    }
+    //                }
+    //        );
+    //       cameraImagePicker.pickImage();
+    //    }
+    //
+    //    @Override
+    //    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    //        if(resultCode == Activity.RESULT_OK) {
+    //            if(requestCode == Picker.PICK_IMAGE_DEVICE) {
+    //                imagePicker.submit(data);
+    //            }
+    //            else if(requestCode == Picker.PICK_IMAGE_CAMERA) {
+    //                cameraImagePicker.submit(data);
+    //            }
+    //        }
+    //    }
 
     private void imageChooserJunk()
     {
@@ -566,16 +661,16 @@ public class JunkFragment extends BaseFragment implements ActivityCompat.OnReque
         View view = getView();
         ImageView imageChooserIV = (ImageView)view.findViewById(R.id.iv_image_chooser);
 
-//        Picasso.with(getActivity())
-//                .load(photoFile)
-//                .fit()
-//                .centerCrop()
-//                .into(imageChooserIV);
+    //        Picasso.with(getActivity())
+    //                .load(photoFile)
+    //                .fit()
+    //                .centerCrop()
+    //                .into(imageChooserIV);
 
         Glide.with(getContext())
                 .load(photoFile)
                 .centerCrop()
-//                .resize(imageChooserIV.getWidth(), imageChooserIV.getHeight())
+    //                .resize(imageChooserIV.getWidth(), imageChooserIV.getHeight())
                 .into(imageChooserIV);
     }
 
@@ -590,5 +685,7 @@ public class JunkFragment extends BaseFragment implements ActivityCompat.OnReque
             Linkify.addLinks(textView, Linkify.ALL);
         }
     }
+
+
 
 }

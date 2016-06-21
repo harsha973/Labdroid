@@ -27,7 +27,7 @@
     <item android:state_enabled="false">
         <shape
             android:shape="rectangle" android:padding="10dp">
-            <solid android:color="@color/colorAccentDisabled"/>
+            <solid android:color="@color/accenttDisabled"/>
             <corners
                 android:bottomLeftRadius="@dimen/button_corner"
                 android:bottomRightRadius="@dimen/button_corner"
@@ -38,7 +38,7 @@
     <item>
         <shape
             android:shape="rectangle" android:padding="10dp">
-            <solid android:color="@color/colorAccent"/>
+            <solid android:color="@color/accent"/>
             <corners
                 android:bottomLeftRadius="@dimen/button_corner"
                 android:bottomRightRadius="@dimen/button_corner"

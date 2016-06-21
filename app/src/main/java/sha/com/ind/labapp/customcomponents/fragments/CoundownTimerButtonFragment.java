@@ -13,12 +13,14 @@ import sha.com.ind.labapp.R;
 import sha.com.ind.labapp.base.BaseFragment;
 import sha.com.ind.labapp.custom.components.CountDownTimerButton;
 import sha.com.ind.labapp.utils.DateUtils;
+import sha.com.ind.labapp.utils.GeneralUtils;
 
 /**
  * Created by sreepolavarapu on 12/03/16.
  */
 public class CoundownTimerButtonFragment extends BaseFragment {
 
+    public static final String TAG = CoundownTimerButtonFragment.class.getSimpleName();
     private CountDownTimerButton mCoundowntimerBtn;
 
     public static CoundownTimerButtonFragment getInstance()
@@ -58,7 +60,8 @@ public class CoundownTimerButtonFragment extends BaseFragment {
 
 
                 String formattedTime = DateUtils.formatRemainingTimeToHHMMSS(millisUntilFinished);
-                if(formattedTime != null)
+                if(GeneralUtils.isContextActive(getActivity()) &&
+                        formattedTime != null)
                 {
                     formattedTime = String.format(getString(R.string.time_remaining), formattedTime);
                     mCoundowntimerBtn.setText(formattedTime);

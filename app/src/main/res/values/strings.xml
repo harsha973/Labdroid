@@ -2,18 +2,21 @@
     <string name="app_name">LabApp</string>
     <string name="add_photos">Add photo</string>
     <string name="custom_components">Custom Components</string>
+    <string name="dump">Dump</string>
     <string name="error_low_storage">Camera cannot be started due to low device storage</string>
     <string name="media">Media</string>
+    <string name="map_view">Map view</string>
     <string name="time_remaining">%1$s remaining</string>
     <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
     <string name="permission_denied_message">"If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]"</string>
     <string name="pick_photo">Pick photo</string>
     <string name="take_photo">Take photo</string>
+    <string name="view_pager_and_tabs">View pager and tabs</string>
 
     <!--<string name="link_text">Gfsgfdsgfdsgfdsgfd<br/>Sgfdsg<br>Fdsg<br>Fsdgfds<br>Www.youtube.com"</string>-->
 
     <string-array name="main">
-        <item>Junk frag (Test purpose)</item>
+        <item>Junk Activity (Test purpose)</item>
         <item>Custom components</item>
         <item>Media</item>
     </string-array>
@@ -22,5 +25,11 @@
         <item>FB style chat profile pic</item>
         <item>FB style chat profile pic with intials</item>
         <item>Countdown timer button</item>
+    </string-array>
+
+    <string-array name="junk">
+        <item>Junk Frag</item>
+        <item>Recycler</item>
+        <item>Viewpager and tabs</item>
     </string-array>
 </resources>

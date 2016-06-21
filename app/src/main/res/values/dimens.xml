@@ -34,7 +34,13 @@
     <!--button_corner should be half of button_height-->
     <dimen name="button_corner">18dp</dimen>
 
+    <!--Elevations-->
+    <dimen name="elevation_2dp">2dp</dimen>
+    <dimen name="elevation_4dp">4dp</dimen>
+    <dimen name="elevation_8dp">8dp</dimen>
+
     <!--Other-->
     <dimen name="progress_bar_default_height">24dp</dimen>
+    <dimen name="card_default_height">100dp</dimen>
 
 </resources>

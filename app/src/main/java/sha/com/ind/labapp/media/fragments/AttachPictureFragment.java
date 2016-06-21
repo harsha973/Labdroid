@@ -1,5 +1,7 @@
 package sha.com.ind.labapp.media.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import sha.com.ind.labapp.base.BaseMediaFragment;
  */
 public class AttachPictureFragment extends BaseMediaFragment {
 
+    public static final String TAG = AttachPictureFragment.class.getSimpleName();
     private ImageView mPictureIV;
     private Button mAddPictureBtn;
 
@@ -30,6 +33,12 @@ public class AttachPictureFragment extends BaseMediaFragment {
     public static AttachPictureFragment getInstance()
     {
         return new AttachPictureFragment();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        shouldScaleImage = false;
     }
 
     @Nullable
@@ -101,5 +110,13 @@ public class AttachPictureFragment extends BaseMediaFragment {
                 .centerCrop()
                 .placeholder(android.R.drawable.ic_menu_edit)
                 .into(mPictureIV);
+
+
+        File file = new File(mediaFilePath);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(file), "image/*");
+//        startActivity(intent);
+
     }
 }

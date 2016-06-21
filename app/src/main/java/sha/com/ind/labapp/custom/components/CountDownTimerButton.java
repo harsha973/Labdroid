@@ -95,7 +95,7 @@ public class CountDownTimerButton extends Button
         mPaint.setColor(Color.WHITE);
         canvas.drawCircle(boundingRect.left + mHeight/2, boundingRect.top + mHeight/2, mHeight/2 - mCircleMargin, mPaint);
 
-        mPaint.setColor(getResources().getColor(R.color.colorAccentDisabled));
+        mPaint.setColor(getResources().getColor(R.color.accenttDisabled));
         canvas.drawArc(mArcRect, startAngle, drawTo, true, mPaint);
 
         //  Draw a line on Y-Axis, which might help user when progress is 0.

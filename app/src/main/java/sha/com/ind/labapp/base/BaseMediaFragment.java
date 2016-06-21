@@ -2,13 +2,16 @@ package sha.com.ind.labapp.base;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
@@ -22,7 +25,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 import rx.Observable;
@@ -160,18 +166,65 @@ public abstract class BaseMediaFragment extends BaseFragment {
 
         String uuid  = String.valueOf(GeneralUtils.generateUUIDWithoutDashes());
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null)
         {
-            File photoFile = FileUtils.createImageFile(getContext(), uuid);
+            File photoFile = createImageFile(getContext(), "images" ,uuid);
+
+            String packageName = "sha.com.ind.labapp";
+            Uri photoUri = FileProvider.getUriForFile(getContext(), "sha.com.ind.labapp.fileprovider", photoFile);
+
+//            File photoFile = FileUtils.createImageFile(getContext(),uuid);
+//grant permision for app with package "packegeName", eg. before starting other app via intent
+            getContext().grantUriPermission(packageName, photoUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             mediaFilePath = photoFile.getAbsolutePath();
 
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
 
             startActivityForResult(takePictureIntent, TAKE_PHOTO);
         }
 
+    }
+
+    public  File createImageFile(Context context, String folderName, String imageFileName)
+    {
+        if (imageFileName != null &&
+                !imageFileName.isEmpty())
+        {
+            //	Add JPG at the end
+            imageFileName += imageFileName.contains(".") ? "" : ".jpg";
+        }
+        else
+        {
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
+            imageFileName = "JPEG_" + timeStamp + ".jpg";
+        }
+
+        File dir = context.getFilesDir();
+
+        //  Create app folder if it does not exist
+        File appFolderFile = new File(dir, folderName);
+        if(!appFolderFile.exists())
+        {
+            appFolderFile.mkdir();
+        }
+
+        //  Create Image file if it does not exist.
+        File imageFile = new File(appFolderFile, imageFileName);
+        try {
+            if(!imageFile.exists())
+            {
+                imageFile.createNewFile();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return imageFile;
     }
 
     //  --- PERMISSION LISTENERS

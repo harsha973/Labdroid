@@ -24,7 +24,18 @@
             android:label="@string/custom_components"/>
 
         <activity android:name=".media.MediaActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/media"/>
+
+        <activity android:name=".dump.JunkActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/dump"/>
+
+        <!--tab stuff-->
+        <activity android:name=".tabs.TabActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/view_pager_and_tabs"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -33,7 +44,7 @@
             android:exported="false">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths" />
+                android:resource="@xml/filepaths"/>
         </provider>
 
     </application>

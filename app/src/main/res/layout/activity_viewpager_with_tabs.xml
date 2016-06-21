@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,6 +13,7 @@
         android:background="#ff77bc1f"
         >
 
+        <!--Custom toolbar with BG-->
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -34,13 +34,21 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
         android:layout_below="@+id/appbar"
+        android:layout_above="@+id/switch_map"
         />
 
+    <Switch
+        android:id="@+id/switch_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/map_view"
+        android:layout_margin="@dimen/margin_standard"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

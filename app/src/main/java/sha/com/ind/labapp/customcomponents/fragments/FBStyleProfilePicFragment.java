@@ -17,6 +17,7 @@ import sha.com.ind.labapp.utils.GlideUtils;
  */
 public class FBStyleProfilePicFragment extends BaseFragment {
 
+    public static final String TAG = FBStyleProfilePicFragment.class.getSimpleName();
     private ImageView mLeftIV;
     private ImageView mTopRightIV;
     private ImageView mBottomRightIV;

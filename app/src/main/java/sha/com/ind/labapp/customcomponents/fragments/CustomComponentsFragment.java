@@ -7,16 +7,17 @@ import android.view.View;
 import android.widget.ListView;
 
 import sha.com.ind.labapp.R;
-import sha.com.ind.labapp.base.BaseFragment;
+import sha.com.ind.labapp.base.BaseActivity;
 import sha.com.ind.labapp.base.BaseListFragment;
-import sha.com.ind.labapp.customcomponents.CustomComponentsActivity;
 import sha.com.ind.labapp.home.adapters.GenericListAdapter;
-import sha.com.ind.labapp.manager.IntentManager;
+import sha.com.ind.labapp.utils.FragmentManagerUtils;
 
 /**
  * Created by sreepolavarapu on 18/12/15.
  */
 public class CustomComponentsFragment extends BaseListFragment {
+
+    public static String TAG = CustomComponentsFragment.class.getSimpleName();
 
     public static CustomComponentsFragment getInstance()
     {
@@ -41,17 +42,29 @@ public class CustomComponentsFragment extends BaseListFragment {
         {
             //  FB style profile pic fragment
             case 0 :
-                getFragmentManager().beginTransaction().replace(R.id.container, FBStyleProfilePicFragment.getInstance()).addToBackStack(null).commit();
+                FragmentManagerUtils.replaceFragmentAndAddToBackStack(
+                        (BaseActivity)getActivity(),
+                        FBStyleProfilePicFragment.getInstance(),
+                        FBStyleProfilePicFragment.TAG,
+                        FragmentManagerUtils.Animation.SLIDE_IN_RIGHT);
                 break;
 
             //  FB style profile pic fragment
             case 1 :
-                getFragmentManager().beginTransaction().replace(R.id.container, FBStyleProfilePicWithIntialsFragment.getInstance()).addToBackStack(null).commit();
+                FragmentManagerUtils.replaceFragmentAndAddToBackStack(
+                        (BaseActivity)getActivity(),
+                        FBStyleProfilePicWithIntialsFragment.getInstance(),
+                        FBStyleProfilePicWithIntialsFragment.TAG,
+                        FragmentManagerUtils.Animation.SLIDE_IN_RIGHT);
                 break;
 
             //  Countdown timer button fragment
             case 2 :
-                getFragmentManager().beginTransaction().replace(R.id.container, CoundownTimerButtonFragment.getInstance()).addToBackStack(null).commit();
+                FragmentManagerUtils.replaceFragmentAndAddToBackStack(
+                        (BaseActivity)getActivity(),
+                        CoundownTimerButtonFragment.getInstance(),
+                        CoundownTimerButtonFragment.TAG,
+                        FragmentManagerUtils.Animation.SLIDE_IN_RIGHT);
                 break;
         }
     }

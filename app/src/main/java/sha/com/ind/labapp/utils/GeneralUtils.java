@@ -3,8 +3,10 @@ package sha.com.ind.labapp.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.util.DisplayMetrics;
 
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -77,4 +79,13 @@ public class GeneralUtils {
         return UUID.randomUUID().toString().replaceAll("-","");
     }
 
+    /**
+     * Generates random color
+     * @return  The random color
+     */
+    public static int getRandomColor()
+    {
+        Random rnd = new Random();
+        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+    }
 }

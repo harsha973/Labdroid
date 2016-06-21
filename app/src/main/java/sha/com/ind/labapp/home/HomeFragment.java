@@ -1,16 +1,15 @@
 package sha.com.ind.labapp.home;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ListView;
 
 import sha.com.ind.labapp.R;
 import sha.com.ind.labapp.base.BaseListFragment;
 import sha.com.ind.labapp.customcomponents.CustomComponentsActivity;
-import sha.com.ind.labapp.dump.JunkFragment;
+import sha.com.ind.labapp.dump.JunkActivity;
 import sha.com.ind.labapp.home.adapters.GenericListAdapter;
-import sha.com.ind.labapp.manager.IntentManager;
+import sha.com.ind.labapp.manager.ActivityManagerUtils;
 import sha.com.ind.labapp.media.MediaActivity;
 
 
@@ -45,17 +44,19 @@ public class HomeFragment extends BaseListFragment{
         {
             //  Junk
             case 0 :
-                getFragmentManager().beginTransaction().add(R.id.container, JunkFragment.getInstance()).addToBackStack(null).commit();
+//                getFragmentManager().beginTransaction().add(R.id.container, JunkFragment.getInstance()).addToBackStack(null).commit();
+                ActivityManagerUtils.startActivity(getActivity() , JunkActivity.class);
+
                 break;
 
             //  Custom components
             case 1 :
-                IntentManager.startActivity(getActivity() , CustomComponentsActivity.class);
+                ActivityManagerUtils.startActivity(getActivity() , CustomComponentsActivity.class);
                 break;
 
             // Media
             case 2 :
-                IntentManager.startActivity(getActivity() , MediaActivity.class);
+                ActivityManagerUtils.startActivity(getActivity() , MediaActivity.class);
                 break;
         }
     }
