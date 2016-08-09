@@ -124,6 +124,9 @@ public class BaseActivity extends AppCompatActivity {
             case ActivityManagerUtils.ExitAnimation.SLIDE_OUT_RIGHT:
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 break;
+            case ActivityManagerUtils.ExitAnimation.ZOOM_OUT:
+                overridePendingTransition(R.anim.zoom_out, R.anim.no_animation);
+                break;
             case ActivityManagerUtils.ExitAnimation.NONE:
             default:
                 break;

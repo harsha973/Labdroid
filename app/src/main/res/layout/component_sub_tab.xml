@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/padding_short"
+    android:paddingBottom="@dimen/padding_10dp"
+    android:minWidth="@dimen/inactive_view_min_width"
+    android:gravity="center">
 
+    <ImageView
+        android:layout_width="@dimen/bottom_menu"
+        android:layout_height="@dimen/bottom_menu"
+        android:layout_marginBottom="@dimen/margin_short"
+        android:src="@drawable/ic_home_white_24dp"
+        android:id="@+id/iv_sub_tab"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:id="@+id/tv_sub_tab"
+        android:visibility="gone"/>
 </LinearLayout>

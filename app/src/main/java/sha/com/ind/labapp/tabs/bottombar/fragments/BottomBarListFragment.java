@@ -6,11 +6,11 @@ import android.widget.ListView;
 
 import sha.com.ind.labapp.R;
 import sha.com.ind.labapp.base.BaseListFragment;
-import sha.com.ind.labapp.customcomponents.CustomComponentsActivity;
-import sha.com.ind.labapp.dump.JunkActivity;
 import sha.com.ind.labapp.home.adapters.GenericListAdapter;
 import sha.com.ind.labapp.manager.ActivityManagerUtils;
-import sha.com.ind.labapp.media.MediaActivity;
+import sha.com.ind.labapp.tabs.bottombar.CustomBottomBarActivity;
+import sha.com.ind.labapp.tabs.bottombar.MaterialBottomBarActivity;
+import sha.com.ind.labapp.tabs.bottombar.RoughikeBottomNavigationActivity;
 
 
 /**
@@ -35,7 +35,7 @@ public class BottomBarListFragment extends BaseListFragment{
 
     private void init()
     {
-        getListView().setAdapter(new GenericListAdapter(getActivity(), getResources().getStringArray(R.array.main)));
+        getListView().setAdapter(new GenericListAdapter(getActivity(), getResources().getStringArray(R.array.bottombar)));
     }
 
     @Override
@@ -45,21 +45,23 @@ public class BottomBarListFragment extends BaseListFragment{
             //  Junk
             case 0 :
 //                getFragmentManager().beginTransaction().add(R.id.container, JunkFragment.getInstance()).addToBackStack(null).commit();
-                ActivityManagerUtils.startActivity(getActivity() ,
-                        JunkActivity.class,
-                        ActivityManagerUtils.EnterAnimation.ZOOM_IN,
-                        ActivityManagerUtils.ExitAnimation.ZOOM_OUT);
+//                ActivityManagerUtils.startActivity(getActivity() ,
+//                        JunkActivity.class,
+//                        ActivityManagerUtils.EnterAnimation.ZOOM_IN,
+//                        ActivityManagerUtils.ExitAnimation.ZOOM_OUT);
+
+                ActivityManagerUtils.startActivity(getActivity() , RoughikeBottomNavigationActivity.class);
 
                 break;
 
             //  Custom components
             case 1 :
-                ActivityManagerUtils.startActivity(getActivity() , CustomComponentsActivity.class);
+                ActivityManagerUtils.startActivity(getActivity() , MaterialBottomBarActivity.class);
                 break;
-
-            // Media
+//
+//            // Media
             case 2 :
-                ActivityManagerUtils.startActivity(getActivity() , MediaActivity.class);
+                ActivityManagerUtils.startActivity(getActivity() , CustomBottomBarActivity.class);
                 break;
         }
     }

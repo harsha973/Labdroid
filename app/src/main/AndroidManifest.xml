@@ -32,10 +32,22 @@
             android:label="@string/dump"/>
 
         <!--tab stuff-->
-        <activity android:name=".tabs.TabActivity"
+        <activity android:name=".tabs.TabViewPagerActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/view_pager_and_tabs"/>
+
+        <activity android:name=".tabs.bottombar.RoughikeBottomNavigationActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/bottom_navigation"/>
+
+        <activity android:name=".tabs.bottombar.BottomBarListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/bottom_navigation_libs"/>
+
+        <activity android:name=".tabs.bottombar.MaterialBottomBarActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/bottom_navigation_mat"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

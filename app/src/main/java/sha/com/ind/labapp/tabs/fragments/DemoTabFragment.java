@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import sha.com.ind.labapp.R;
@@ -52,5 +53,11 @@ public class DemoTabFragment extends BaseFragment {
         ((TextView) rootView.findViewById(R.id.tv_demo_obj)).setText(String.valueOf(mValueTosShow));
         rootView.setBackgroundColor(GeneralUtils.getRandomColor());
         return rootView;
-    } 
-} 
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+}

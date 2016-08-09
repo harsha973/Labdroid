@@ -9,7 +9,8 @@ import sha.com.ind.labapp.base.BaseActivity;
 import sha.com.ind.labapp.base.BaseListFragment;
 import sha.com.ind.labapp.home.adapters.GenericListAdapter;
 import sha.com.ind.labapp.manager.ActivityManagerUtils;
-import sha.com.ind.labapp.tabs.TabActivity;
+import sha.com.ind.labapp.tabs.bottombar.BottomBarListActivity;
+import sha.com.ind.labapp.tabs.TabViewPagerActivity;
 import sha.com.ind.labapp.utils.FragmentManagerUtils;
 
 /**
@@ -58,7 +59,21 @@ public class JunkListFragment extends BaseListFragment {
 
             // Tabs with Viewpager
             case 2 :
-                ActivityManagerUtils.startActivity(getActivity() , TabActivity.class);
+                ActivityManagerUtils.startActivity(getActivity() , TabViewPagerActivity.class);
+                break;
+
+            // Bottom navigation fragment
+            case 3 :
+                ActivityManagerUtils.startActivity(getActivity() , BottomBarListActivity.class);
+                break;
+
+            // Transp Circle Frag
+            case 4 :
+                FragmentManagerUtils.replaceFragmentAndAddToBackStack(
+                        (BaseActivity)getActivity(),
+                        TranspCircleBLLFragment.newInstance(),
+                        TranspCircleBLLFragment.TAG,
+                        FragmentManagerUtils.Animation.SLIDE_IN_RIGHT);
                 break;
         }
     }

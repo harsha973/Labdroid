@@ -1,16 +1,21 @@
 <resources>
     <string name="app_name">LabApp</string>
     <string name="add_photos">Add photo</string>
+    <string name="bottom_navigation">Bottom navigation</string>
+    <string name="bottom_navigation_mat">Bottom navigation Material</string>
+    <string name="bottom_navigation_libs">Bottom navigation different libs</string>
     <string name="custom_components">Custom Components</string>
     <string name="dump">Dump</string>
     <string name="error_low_storage">Camera cannot be started due to low device storage</string>
     <string name="media">Media</string>
-    <string name="map_view">Map view</string>
+    <string name="crop_BG">Transp circle LL</string>
+    <string name="tab_replaced">Tab replaced</string>
     <string name="time_remaining">%1$s remaining</string>
     <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
     <string name="permission_denied_message">"If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]"</string>
     <string name="pick_photo">Pick photo</string>
     <string name="take_photo">Take photo</string>
+    <string name="toggle_fragment">Toggle Fragment</string>
     <string name="view_pager_and_tabs">View pager and tabs</string>
 
     <!--<string name="link_text">Gfsgfdsgfdsgfdsgfd<br/>Sgfdsg<br>Fdsg<br>Fsdgfds<br>Www.youtube.com"</string>-->
@@ -19,6 +24,12 @@
         <item>Junk Activity (Test purpose)</item>
         <item>Custom components</item>
         <item>Media</item>
+    </string-array>
+
+    <string-array name="bottombar">
+        <item>Roughike</item>
+        <item>Material-BottomNavigation</item>
+        <item>Custom</item>
     </string-array>
 
     <string-array name="custom_components">
@@ -31,5 +42,7 @@
         <item>Junk Frag</item>
         <item>Recycler</item>
         <item>Viewpager and tabs</item>
+        <item>Bottom navigation</item>
+        <item>Transp circle LL</item>
     </string-array>
 </resources>

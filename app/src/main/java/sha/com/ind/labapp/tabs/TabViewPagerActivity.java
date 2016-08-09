@@ -1,19 +1,24 @@
 package sha.com.ind.labapp.tabs;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnMenuTabClickListener;
+
 import sha.com.ind.labapp.R;
 import sha.com.ind.labapp.base.BaseActivity;
-import sha.com.ind.labapp.base.BaseFragment;
+import sha.com.ind.labapp.tabs.fragments.DemoTab2Fragment;
 import sha.com.ind.labapp.tabs.fragments.DemoTabFragment;
 import sha.com.ind.labapp.tabs.fragments.TabReplaceFragment;
 import sha.com.ind.labapp.utils.AnimationUtils;
@@ -29,6 +34,7 @@ public class TabViewPagerActivity extends BaseActivity implements ViewPager.OnPa
     private DemoCollectionPagerAdapter mPagerAdapter;
     private static final int TOGGLE_ENABLE_POS = 2;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +42,7 @@ public class TabViewPagerActivity extends BaseActivity implements ViewPager.OnPa
 
         setupActionBar(R.string.view_pager_and_tabs);
         init();
+
     }
 
     @Override
@@ -88,14 +95,12 @@ public class TabViewPagerActivity extends BaseActivity implements ViewPager.OnPa
     public static class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
 
         private SwitchFragListener mSwitchFragListener;
-        private FragmentManager mFragmentManager;
-        private BaseFragment mReplaceFragment;
         private Switch mToggle;
+        private int pagerAdapterPosChanged = POSITION_UNCHANGED;
 
         public DemoCollectionPagerAdapter(FragmentManager fm, Switch toggle) {
             super(fm);
             mToggle = toggle;
-            mFragmentManager = fm;
 
             mSwitchFragListener = new SwitchFragListener();
             mToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -111,17 +116,13 @@ public class TabViewPagerActivity extends BaseActivity implements ViewPager.OnPa
             switch (i)
             {
                 case TOGGLE_ENABLE_POS:
-                    if (mReplaceFragment == null)
+                    if(mToggle.isChecked())
                     {
-                        if(mToggle.isChecked())
-                        {
-                            mReplaceFragment =  TabReplaceFragment.getInstance();
-                        }else
-                        {
-                            mReplaceFragment =  DemoTabFragment.getInstance(i);
-                        }
+                        return TabReplaceFragment.getInstance();
+                    }else
+                    {
+                        return DemoTab2Fragment.getInstance(i);
                     }
-                    return mReplaceFragment;
 
                 default:
                     return DemoTabFragment.getInstance(i);
@@ -140,10 +141,12 @@ public class TabViewPagerActivity extends BaseActivity implements ViewPager.OnPa
 
         @Override
         public int getItemPosition(Object object) {
-            if (object instanceof TabReplaceFragment &&  mReplaceFragment instanceof DemoTabFragment)
-                return POSITION_NONE;
-            if (object instanceof DemoTabFragment && mReplaceFragment instanceof TabReplaceFragment)
-                return POSITION_NONE;
+
+            //	This check make sures getItem() is called only for the required Fragment
+            if (object instanceof TabReplaceFragment
+                    ||  object instanceof DemoTab2Fragment)
+                return pagerAdapterPosChanged;
+
             return POSITION_UNCHANGED;
         }
 
@@ -157,23 +160,18 @@ public class TabViewPagerActivity extends BaseActivity implements ViewPager.OnPa
 
             public void onSwitchToNextFragment() {
 
-                mFragmentManager.beginTransaction().remove(mReplaceFragment)
-                        .commit();
-                if (mReplaceFragment instanceof TabReplaceFragment){
-                    mReplaceFragment = DemoTabFragment.getInstance(TOGGLE_ENABLE_POS);
-                }else{ // Instance of NextFragment
-                    mReplaceFragment = TabReplaceFragment.getInstance();
-                }
-
+                pagerAdapterPosChanged = POSITION_NONE;
                 notifyDataSetChanged();
             }
         }
+
+        /**
+         * Interface to switch frags
+         */
+        private interface SwitchFragInterface{
+            void onSwitchToNextFragment();
+        }
     }
 
-    /**
-     * Interface to switch frags
-     */
-    private interface SwitchFragInterface{
-        void onSwitchToNextFragment();
-    }
+
 }

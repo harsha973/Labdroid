@@ -2,6 +2,7 @@ package sha.com.ind.labapp.base;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -81,6 +82,15 @@ public class BaseFragment extends Fragment {
             {
                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
+        }
+    }
+
+    protected void setTitle(int stringResID)
+    {
+        ActionBar actionBar = ((BaseActivity) getActivity()).getSupportActionBar();
+        if(actionBar != null)
+        {
+            actionBar.setTitle(stringResID);
         }
     }
 

@@ -47,6 +47,7 @@
                 style="@style/MyRadioButtonStyle"
                 android:paddingLeft="@dimen/padding_short"
                 android:checked="true"
+                android:id="@+id/junk_checkbox"
                 />
 
             <TextView

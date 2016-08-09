@@ -5,6 +5,27 @@
 
     <include layout="@layout/toolbar"/>
 
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Fixed Mode"-->
+        <!--android:onClick="fixedMode"/>-->
+
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Fixed Mode 3 Tabs" />-->
+
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Dark Mode" />-->
+
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Dark Mode white BG" />-->
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

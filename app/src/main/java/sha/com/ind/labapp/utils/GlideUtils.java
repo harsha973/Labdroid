@@ -90,7 +90,21 @@ public class GlideUtils {
                 .into(image);
     }
 
-
+    /**
+     * Helper to load GIF into the imageview
+     * @param context   Context
+     * @param url   URL to load
+     * @param image Imageview to load into
+     * @param placeHolderResid  Placeholder until image loads
+     */
+    public static void loadWithGlideASGIF(Context context, String url, ImageView image, int placeHolderResid)
+    {
+        Glide.with(context)
+                .load(url)
+                .asGif()
+                .placeholder(placeHolderResid)
+                .into(image);
+    }
 
     public static void loadWithGlide(Context context, String url, ImageView image, Drawable errorDrawable, Drawable placeHolderResid)
     {

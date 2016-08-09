@@ -5,7 +5,7 @@ import android.util.Log;
 
 import sha.com.ind.labapp.R;
 import sha.com.ind.labapp.base.BaseActivity;
-import sha.com.ind.labapp.home.HomeFragment;
+import sha.com.ind.labapp.tabs.bottombar.fragments.BottomBarListFragment;
 
 /**
  * Created by sreepolavarapu on 9/08/16.
@@ -22,7 +22,7 @@ public class BottomBarListActivity extends BaseActivity {
         setupActionBar(R.string.app_name);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, HomeFragment.getInstance())
+                .add(R.id.fragment_container, BottomBarListFragment.getInstance())
                 .commit();
     }
 
