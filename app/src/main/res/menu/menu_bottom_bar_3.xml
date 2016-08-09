@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottomBarItemOne"
+        android:icon="@drawable/ic_home_white_24dp"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/bottomBarItemTwo"
+        android:icon="@drawable/ic_face_white_24dp"
+        android:title="Account" />
+    <item
+        android:id="@+id/bottomBarItemThree"
+        android:icon="@drawable/ic_credit_card_white_24dp"
+        android:title="Card" />
+
+    <item
+        android:id="@+id/bottomBarItemFour"
+        android:icon="@drawable/ic_feedback_white_24dp"
+        android:title="Spend pts" />
+
+    <item
+        android:id="@+id/bottomBarItemFive"
+        android:icon="@drawable/ic_more_horiz_white_24dp"
+        android:title="More" />
+</menu>
