@@ -2,6 +2,7 @@
     <string name="app_name">LabApp</string>
     <string name="add_photos">Add photo</string>
     <string name="bottom_navigation">Bottom navigation</string>
+    <string name="bottom_navigation_custom">Bottom navigation Custom</string>
     <string name="bottom_navigation_mat">Bottom navigation Material</string>
     <string name="bottom_navigation_libs">Bottom navigation different libs</string>
     <string name="custom_components">Custom Components</string>

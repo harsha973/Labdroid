@@ -49,6 +49,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/bottom_navigation_mat"/>
 
+        <activity android:name=".tabs.bottombar.CustomBottomBarActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/bottom_navigation_custom"/>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="sha.com.ind.labapp.fileprovider"

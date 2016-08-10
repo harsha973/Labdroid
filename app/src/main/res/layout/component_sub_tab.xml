@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<sha.com.ind.labapp.custom.components.BottomBarItemLL xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/padding_short"
     android:paddingBottom="@dimen/padding_10dp"
-    android:minWidth="@dimen/inactive_view_min_width"
     android:gravity="center">
 
     <ImageView
@@ -20,4 +20,4 @@
         android:ellipsize="end"
         android:id="@+id/tv_sub_tab"
         android:visibility="gone"/>
-</LinearLayout>
+</sha.com.ind.labapp.custom.components.BottomBarItemLL>
