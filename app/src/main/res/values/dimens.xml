@@ -16,6 +16,7 @@
     <dimen name="padding_extra_double">48dp</dimen>
     <dimen name="padding_double">32dp</dimen>
     <dimen name="padding_standard">16dp</dimen>
+    <dimen name="padding_12dp">12dp</dimen>
     <dimen name="padding_10dp">10dp</dimen>
     <dimen name="padding_half">8dp</dimen>
     <dimen name="padding_short">6dp</dimen>
@@ -49,6 +50,7 @@
     <dimen name="bottom_menu">24dp</dimen>
 
     <!--bottom bar-->
+    <dimen name="bottom_bar_height">56dp</dimen>
     <dimen name="inactive_view_min_width">56dp</dimen>
     <dimen name="inactive_view_max_width">96dp</dimen>
     <dimen name="active_view_min_width">96dp</dimen>

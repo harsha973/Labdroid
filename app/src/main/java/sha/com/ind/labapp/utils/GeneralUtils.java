@@ -88,4 +88,26 @@ public class GeneralUtils {
         Random rnd = new Random();
         return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
+
+    /**
+     * Returns screen width in pixels.
+     *
+     * @param context Context to get resources and device specific display metrics
+     * @return screen width
+     */
+    public static int getScreenWidthInPixels(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return displayMetrics.widthPixels;
+    }
+
+    /**
+     * Returns screen width in width.
+     *
+     * @param context Context to get resources and device specific display metrics
+     * @return screen width
+     */
+    public static int getScreenWidthInDP(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return (int) (displayMetrics.widthPixels / displayMetrics.density);
+    }
 }

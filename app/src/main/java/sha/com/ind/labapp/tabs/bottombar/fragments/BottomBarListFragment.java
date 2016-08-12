@@ -9,6 +9,7 @@ import sha.com.ind.labapp.base.BaseListFragment;
 import sha.com.ind.labapp.home.adapters.GenericListAdapter;
 import sha.com.ind.labapp.manager.ActivityManagerUtils;
 import sha.com.ind.labapp.tabs.bottombar.CustomBottomBarActivity;
+import sha.com.ind.labapp.tabs.bottombar.CustomBottomBarActivity2;
 import sha.com.ind.labapp.tabs.bottombar.MaterialBottomBarActivity;
 import sha.com.ind.labapp.tabs.bottombar.RoughikeBottomNavigationActivity;
 
@@ -61,10 +62,9 @@ public class BottomBarListFragment extends BaseListFragment{
 //
 //            // Media
             case 2 :
-                ActivityManagerUtils.startActivity(getActivity() , CustomBottomBarActivity.class);
+                ActivityManagerUtils.startActivity(getActivity() , CustomBottomBarActivity2.class);
                 break;
         }
     }
-
 
 }
