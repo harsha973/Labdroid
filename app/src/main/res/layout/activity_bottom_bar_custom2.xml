@@ -1,24 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout android:id="@+id/CoordinatorLayout01"
+<RelativeLayout android:id="@+id/CoordinatorLayout01"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:fitsSystemWindows="true">
 
-    <include layout="@layout/toolbar"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/ll_toolbar">
 
-    <FrameLayout
+        <include layout="@layout/toolbar"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fixed tabs"
+            android:id="@+id/cb_fixed_tabs"
+            android:layout_margin="@dimen/margin_standard"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dark theme"
+            android:id="@+id/cb_dark_theme"
+            android:layout_margin="@dimen/margin_standard"/>
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fragment_container"/>
+        android:layout_below="@+id/ll_toolbar"
+        android:layout_above="@+id/ll_bottom_nav"/>
 
     <sha.com.ind.labapp.custom.components.BottomBarLL
         android:id="@+id/ll_bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_bar_height"
         android:orientation="horizontal"
-        android:layout_gravity="bottom"/>
+        android:layout_alignParentBottom="true"/>
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

@@ -16,13 +16,22 @@ public class DemoTab2Fragment extends BaseFragment {
 
     public static final String ARG_OBJECT = "object";
 
-    private int mValueTosShow;
+    private String mValueTosShow;
 
     public static DemoTab2Fragment getInstance(int value)
     {
         DemoTab2Fragment demoObjFragment = new DemoTab2Fragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(ARG_OBJECT, value);
+        bundle.putString(ARG_OBJECT, String.valueOf(value) );
+        demoObjFragment.setArguments(bundle);
+        return demoObjFragment;
+    }
+
+    public static DemoTab2Fragment getInstance(String title)
+    {
+        DemoTab2Fragment demoObjFragment = new DemoTab2Fragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_OBJECT, String.valueOf(title) );
         demoObjFragment.setArguments(bundle);
         return demoObjFragment;
     }
@@ -32,13 +41,13 @@ public class DemoTab2Fragment extends BaseFragment {
         super.onCreate(savedInstanceState);
 
         Bundle bundle  = getArguments() == null ? savedInstanceState : getArguments();
-        mValueTosShow = bundle.getInt(ARG_OBJECT);
+        mValueTosShow = bundle.getString(ARG_OBJECT);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(ARG_OBJECT, mValueTosShow);
+        outState.putString(ARG_OBJECT, mValueTosShow);
     }
 
     @Override

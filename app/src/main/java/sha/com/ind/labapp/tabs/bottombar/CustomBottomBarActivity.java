@@ -1,293 +1,142 @@
 package sha.com.ind.labapp.tabs.bottombar;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import sha.com.ind.labapp.R;
 import sha.com.ind.labapp.base.BaseActivity;
-import sha.com.ind.labapp.custom.components.BottomTabItem;
+import sha.com.ind.labapp.custom.components.BottomBarLL;
+import sha.com.ind.labapp.tabs.bottombar.interfaces.OnBottomTabBarCallBack;
+import sha.com.ind.labapp.tabs.fragments.DemoTab2Fragment;
 
 /**
  * Created by sreepolavarapu on 9/08/16.
+ *
+ * Activity to demo the Bottom nav bar
  */
-public class CustomBottomBarActivity extends BaseActivity implements View.OnClickListener{
+public class CustomBottomBarActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener, OnBottomTabBarCallBack {
 
-    private String TAG_I_AM_SELECTED = "TAG_I_AM_SELECTED";
-    private int ANIMATE_TIME = 150;
+    private BottomBarLL mBottomNavLL;
+    private ViewPager mViewPager;
 
-    private LinearLayout mBottomNavLL;
-
-    //  Home
-    private BottomTabItem mFirstTabLL;
-    //
-    private BottomTabItem mSecondTabLL;
-    //  Card
-    private BottomTabItem mThirdTabLL;
-    //
-    private BottomTabItem mFourthTabLL;
-    //  More
-    private BottomTabItem mFifthTabLL;
+    private static final int MAX_TAB_COUNT = 5;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_bottom_bar_custom);
+        setContentView(R.layout.activity_bottom_bar_custom2);
         setupActionBar(R.string.bottom_navigation_custom);
         enableDisplayHomeasUp();
 
-        mBottomNavLL = (LinearLayout) findViewById(R.id.ll_bottom_nav);
+        mBottomNavLL = (BottomBarLL) findViewById(R.id.ll_bottom_nav);
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+
+        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), "title");
+        mViewPager.setAdapter(pagerAdapter);
+
+        CheckBox mFixedTabsCB = (CheckBox) findViewById(R.id.cb_fixed_tabs);
+        CheckBox mDarkThemeCB = (CheckBox) findViewById(R.id.cb_dark_theme);
+
+        mFixedTabsCB.setOnCheckedChangeListener(this);
+        mDarkThemeCB.setOnCheckedChangeListener(this);
+        mBottomNavLL.updateBottomTabCallback(this);
         prepareTabs();
-
     }
-
 
     private void prepareTabs(){
 
-        for (int index = 0; index < mBottomNavLL.getChildCount(); index++)
+        for (int index = 0; index < 5; index++)
         {
-            BottomTabItem tabLL = (BottomTabItem)mBottomNavLL.getChildAt(index);
-            tabLL.setOnClickListener(this);
-            switch (tabLL.getId())
+            switch (index)
             {
-                case R.id.tab_one:
-                    mFirstTabLL = tabLL;
-                    prepareTab(mFirstTabLL, "Home", R.drawable.ic_home_white_24dp );
-
+                case 0:
+                    mBottomNavLL.addNewTab( "Home", R.drawable.ic_home_white_24dp, true);
                     break;
 
-                case R.id.tab_two:
-                    mSecondTabLL = tabLL;
-                    prepareTab(mSecondTabLL,  "Stores", R.drawable.ic_face_white_24dp);
+                case 1:
+                    mBottomNavLL.addNewTab( "Stores", R.drawable.ic_face_white_24dp, false);
                     break;
 
-                case R.id.tab_three:
-                    mThirdTabLL = tabLL;
-                    prepareTab(mThirdTabLL,  "Card", R.drawable.ic_credit_card_white_24dp);
+                case 2:
+                    mBottomNavLL.addNewTab( "Card", R.drawable.ic_credit_card_white_24dp, false);
                     break;
 
-                case R.id.tab_four:
-                    mFourthTabLL = tabLL;
-                    prepareTab(mFourthTabLL,  "Spend pts", R.drawable.ic_feedback_white_24dp);
+                case 3:
+                    mBottomNavLL.addNewTab( "Spend pts", R.drawable.ic_feedback_white_24dp, false);
                     break;
 
-                case R.id.tab_five:
-                    mFifthTabLL = tabLL;
-                    prepareTab(mFifthTabLL,  "More", R.drawable.ic_more_horiz_white_24dp);
+                case 4:
+                    mBottomNavLL.addNewTab( "More", R.drawable.ic_more_horiz_white_24dp, false);
                     break;
             }
-        }
-
-        tabSelected(0);
-
-    }
-
-    private void prepareTab(BottomTabItem tabItem, String text , @DrawableRes int resID){
-
-
-//        TextView subTabTV = (TextView)tabItem.findViewById(R.id.tv_sub_tab);
-        tabItem.getTitleTV().setText(text);
-        tabItem.getTitleTV().setTextColor(ContextCompat.getColor(this, R.color.white));
-
-//        ImageView subTabIV = (ImageView)tabItem.findViewById(R.id.iv_sub_tab);
-        tabItem.getTitleIV().setImageResource(resID);
-//        subTabIV.setColorFilter(ContextCompat.getColor(this, isSelected ?  R.color.white : R.color.grey_dark));
-
-    }
-
-    private void tabSelected(int position)
-    {
-        BottomTabItem tabLL = (BottomTabItem)mBottomNavLL.getChildAt(position);
-        tabSelected(tabLL);
-    }
-
-    private void modifyTabState(BottomTabItem tabItem, boolean isSelected)
-    {
-        final ImageView icon = tabItem.getTitleIV();
-        final TextView title = tabItem.getTitleTV();
-//        TextView subTabTV = (TextView)tabItem.findViewById(R.id.tv_sub_tab);
-//        ImageView subTabIV = (ImageView)tabItem.findViewById(R.id.iv_sub_tab);
-
-        tabItem.getTitleTV().setVisibility(isSelected ? View.VISIBLE : View.GONE);
-//        tabItem.getTitleTV().setTextColor(ContextCompat.getColor(this, R.color.white));
-        tabItem.getTitleIV().setColorFilter(ContextCompat.getColor(this, isSelected ?  R.color.white : R.color.grey_dark));
-
-//        int scale = isSelected ? 1  : 0;
-//
-//        ViewPropertyAnimatorCompat titleAnimator = ViewCompat.animate(tabItem.getTitleTV())
-//                .setDuration(150)
-//                .scaleX(scale)
-//                .scaleY(scale);
-//
-//        titleAnimator.alpha(scale);
-//
-//        titleAnimator.start();
-
-        if(isSelected)
-        {
-//            animateBGSelected(tabItem);
-
-//            Animation animation   =    AnimationUtils.loadAnimation(this, R.anim.scale_grow_anim);
-//            animation.setDuration(ANIMATE_TIME);
-//            tabItem.setAnimation(animation);
-
-//            ViewPropertyAnimatorCompat titleAnimator = ViewCompat.animate(tabItem.getTitleTV())
-//                    .setDuration(ANIMATE_TIME)
-//                    .scaleX(1)
-//                    .scaleY(1);
-//
-//            titleAnimator.alpha(1);
-//            titleAnimator.start();
-
-            int shortDp = getResources().getDimensionPixelOffset(R.dimen.padding_short);
-            int tenDp = getResources().getDimensionPixelOffset(R.dimen.padding_10dp);
-
-            paddingAnimTop(icon.getPaddingTop(), shortDp, icon);
-
-//            paddingAnimBottom(title.getPaddingBottom(), tenDp, title);
-
-            ViewCompat.animate(icon)
-                    .setDuration(ANIMATE_TIME)
-                    .alpha(1f)
-                    .start();
-
-        }else
-        {
-//            animateBGUnSelected(tabItem);
-
-//            Animation animation   =    AnimationUtils.loadAnimation(this, R.anim.scale_shrink_anim);
-//            animation.setDuration(ANIMATE_TIME);
-//            tabItem.setAnimation(animation);
-
-//            ViewPropertyAnimatorCompat titleAnimator = ViewCompat.animate(tabItem.getTitleTV())
-//                    .setDuration(ANIMATE_TIME)
-//                    .scaleX(0)
-//                    .scaleY(0);
-//
-//            titleAnimator.alpha(0);
-//            titleAnimator.start();
-
-            int mSixteenDp = getResources().getDimensionPixelOffset(R.dimen.padding_standard);
-
-            paddingAnimTop(icon.getPaddingTop(), mSixteenDp, icon);
-
-//            paddingAnimBottom(tabItem.getPaddingBottom(), 0, tabItem);
-
-            ViewCompat.animate(icon)
-                    .setDuration(ANIMATE_TIME)
-                    .alpha(0.6f)
-                    .start();
         }
 
     }
 
 
-    private void paddingAnimTop(int start, int end, final View imageview)
-    {
-        ValueAnimator paddingAnimator = ValueAnimator.ofInt(start, end);
-        paddingAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                imageview.setPadding(imageview.getPaddingLeft(), (Integer) animation.getAnimatedValue(),
-                        imageview.getPaddingRight(), imageview.getPaddingBottom());
-            }
-        });
-        paddingAnimator.setDuration(ANIMATE_TIME);
-        paddingAnimator.start();
-    }
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
 
-    private void paddingAnimBottom(int start, int end, final View imageview)
-    {
-        ValueAnimator paddingAnimator = ValueAnimator.ofInt(start, end);
-        paddingAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                imageview.setPadding(imageview.getPaddingLeft(), imageview.getPaddingEnd(),
-                        imageview.getPaddingRight(), (Integer) animation.getAnimatedValue());
-            }
-        });
-        paddingAnimator.setDuration(ANIMATE_TIME);
-        paddingAnimator.start();
-    }
-
-
-    private void animateBGSelected(final BottomTabItem tabItem)
-    {
-        int colorFrom = ContextCompat.getColor(this, R.color.white);
-        int colorTo = ContextCompat.getColor(this, R.color.primary);
-        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
-        colorAnimation.setDuration(ANIMATE_TIME); // milliseconds
-        colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-
-            @Override
-            public void onAnimationUpdate(ValueAnimator animator) {
-                tabItem.setBackgroundColor((int) animator.getAnimatedValue());
-            }
-
-        });
-        colorAnimation.start();
-    }
-
-    private void animateBGUnSelected(final BottomTabItem tabItem)
-    {
-        int colorFrom = ContextCompat.getColor(this, R.color.primary);
-        int colorTo = ContextCompat.getColor(this, R.color.white);
-        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
-        colorAnimation.setDuration(ANIMATE_TIME); // milliseconds
-        colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-
-            @Override
-            public void onAnimationUpdate(ValueAnimator animator) {
-                tabItem.setBackgroundColor((int) animator.getAnimatedValue());
-            }
-
-        });
-        colorAnimation.start();
-    }
-
-    private void tabSelected(View view)
-    {
-        if(view instanceof BottomTabItem)
+        switch (compoundButton.getId())
         {
-            BottomTabItem tabLL = (BottomTabItem)view;
-
-            for (int index = 0; index < mBottomNavLL.getChildCount(); index++)
-            {
-                BottomTabItem child = (BottomTabItem)mBottomNavLL.getChildAt(index);
-
-                boolean isSelected = child.getId() == tabLL.getId();
-
-                String tag = (String)child.getTag();
-
-                boolean isPreviouslySelected = !isSelected && !TextUtils.isEmpty(tag);
-
-                if(isPreviouslySelected || isSelected)
+            case R.id.cb_fixed_tabs:
+                if(checked)
                 {
-                    modifyTabState(child, isSelected);
-                    child.setActiveState(isSelected);
-                    child.setTag(isSelected ? TAG_I_AM_SELECTED : null);
+                    mBottomNavLL.setAsFixedTabs();
+                }else
+                {
+                    mBottomNavLL.setAsShiftingTabs();
                 }
+                break;
 
-
-            }
+            case R.id.cb_dark_theme:
+                if(checked)
+                {
+                    mBottomNavLL.enableDarkTheme();
+                }
+                else
+                {
+                    mBottomNavLL.disableDarkTheme();
+                }
+                break;
         }
     }
 
     @Override
-    public void onClick(View view) {
+    public void onTabSelected(int position) {
+        mViewPager.setCurrentItem(position);
+    }
 
-        tabSelected(view);
+
+    public static class PagerAdapter extends FragmentStatePagerAdapter {
+
+        private String mTitle;
+        public PagerAdapter(FragmentManager fm, String title) {
+            super(fm);
+            mTitle = title;
+        }
+
+        @Override
+        public Fragment getItem(int i) {
+            return DemoTab2Fragment.getInstance(mTitle);
+        }
+
+        @Override
+        public int getCount() {
+            return MAX_TAB_COUNT;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return "Tab " + (position + 1);
+        }
 
     }
 

@@ -9,7 +9,6 @@ import sha.com.ind.labapp.base.BaseListFragment;
 import sha.com.ind.labapp.home.adapters.GenericListAdapter;
 import sha.com.ind.labapp.manager.ActivityManagerUtils;
 import sha.com.ind.labapp.tabs.bottombar.CustomBottomBarActivity;
-import sha.com.ind.labapp.tabs.bottombar.CustomBottomBarActivity2;
 import sha.com.ind.labapp.tabs.bottombar.MaterialBottomBarActivity;
 import sha.com.ind.labapp.tabs.bottombar.RoughikeBottomNavigationActivity;
 
@@ -43,26 +42,20 @@ public class BottomBarListFragment extends BaseListFragment{
     public void onListItemClick(ListView l, View v, int position, long id) {
         switch (position)
         {
-            //  Junk
+            //  Rough hike Lib
             case 0 :
-//                getFragmentManager().beginTransaction().add(R.id.container, JunkFragment.getInstance()).addToBackStack(null).commit();
-//                ActivityManagerUtils.startActivity(getActivity() ,
-//                        JunkActivity.class,
-//                        ActivityManagerUtils.EnterAnimation.ZOOM_IN,
-//                        ActivityManagerUtils.ExitAnimation.ZOOM_OUT);
-
                 ActivityManagerUtils.startActivity(getActivity() , RoughikeBottomNavigationActivity.class);
 
                 break;
 
-            //  Custom components
+            //  Material bottom lib
             case 1 :
                 ActivityManagerUtils.startActivity(getActivity() , MaterialBottomBarActivity.class);
                 break;
-//
-//            // Media
+
+            //  Custom - Mine .. Yay  :) .. With or without you .. ha ha
             case 2 :
-                ActivityManagerUtils.startActivity(getActivity() , CustomBottomBarActivity2.class);
+                ActivityManagerUtils.startActivity(getActivity() , CustomBottomBarActivity.class);
                 break;
         }
     }

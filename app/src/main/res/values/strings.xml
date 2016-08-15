@@ -37,13 +37,13 @@
         <item>FB style chat profile pic</item>
         <item>FB style chat profile pic with intials</item>
         <item>Countdown timer button</item>
+        <item>Bottom navigation</item>
     </string-array>
 
     <string-array name="junk">
         <item>Junk Frag</item>
         <item>Recycler</item>
         <item>Viewpager and tabs</item>
-        <item>Bottom navigation</item>
         <item>Transp circle LL</item>
     </string-array>
 </resources>

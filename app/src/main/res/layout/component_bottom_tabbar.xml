@@ -6,30 +6,30 @@
     android:background="@color/white"
     android:animateLayoutChanges="true">
 
-    <sha.com.ind.labapp.custom.components.BottomTabItem
+    <sha.com.ind.labapp.archive.components.BottomTabItemTrash
         android:id="@+id/tab_one"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />
 
-    <sha.com.ind.labapp.custom.components.BottomTabItem
+    <sha.com.ind.labapp.archive.components.BottomTabItemTrash
         android:id="@+id/tab_two"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="100"/>
 
-    <sha.com.ind.labapp.custom.components.BottomTabItem
+    <sha.com.ind.labapp.archive.components.BottomTabItemTrash
         android:id="@+id/tab_three"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="100"/>
 
-    <sha.com.ind.labapp.custom.components.BottomTabItem
+    <sha.com.ind.labapp.archive.components.BottomTabItemTrash
         android:id="@+id/tab_four"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="100"/>
 
-    <sha.com.ind.labapp.custom.components.BottomTabItem
+    <sha.com.ind.labapp.archive.components.BottomTabItemTrash
         android:id="@+id/tab_five"
         android:layout_width="0dp"
         android:layout_height="match_parent"

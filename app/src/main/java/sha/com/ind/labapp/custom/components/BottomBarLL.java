@@ -8,21 +8,26 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import sha.com.ind.labapp.R;
+import sha.com.ind.labapp.tabs.bottombar.interfaces.OnBottomTabBarCallBack;
 import sha.com.ind.labapp.utils.AnimationUtils;
 import sha.com.ind.labapp.utils.GeneralUtils;
 
 /**
  * Created by sreepolavarapu on 12/08/16.
+ *
+ * Bottom bar navigation bar which holds maximum of {@link BottomBarLL#MAX_TABS} {@link BottomTabItem}.
+ *
+ * Uses the callback to notify the tab selected state. Does support Fixed width, Variable width, Dark theme.
  */
 public class BottomBarLL extends LinearLayout implements View.OnClickListener{
 
     private String TAG_I_AM_SELECTED = "TAG_I_AM_SELECTED";
+
     public static final int MAX_TABS = 5;
     public static final int ANIM_DURATION = 250;
 
@@ -34,11 +39,23 @@ public class BottomBarLL extends LinearLayout implements View.OnClickListener{
     //  Colors
     private int mSelectedTabForegroundColor;
     private int mUnSelectedTabForegroundColor;
+    private int mTranspBGColor;
 
+    //  Padding
     private int mSelectedTabTopPadding;
     private int mUnSelectedTabTopPadding;
 
-    private LayoutInflater mLayoutInflater;
+    //  alpha
+    private float mSelectedAlpha;
+    private float mUnSelectedAlpha;
+
+    //  Themes
+    private boolean hasFixedTabs;
+    private boolean isDarkTheme;
+
+    //  Callback
+    private OnBottomTabBarCallBack mOnBottomTabbarCallBack;
+
 
     public BottomBarLL(Context context) {
         super(context);
@@ -66,36 +83,25 @@ public class BottomBarLL extends LinearLayout implements View.OnClickListener{
         setWillNotDraw(false);
         ViewCompat.setElevation(this,getResources().getDimensionPixelSize(R.dimen.elevation_8dp));
 
-        mLayoutInflater = LayoutInflater.from(getContext());
+        //  Init alphas
+        mSelectedAlpha = 1f;
+        mUnSelectedAlpha = 0.6f;
 
-        //  Init Paddings
-        mSelectedTabTopPadding = getResources().getDimensionPixelOffset(R.dimen.padding_short);
-        mUnSelectedTabTopPadding = getResources().getDimensionPixelOffset(R.dimen.padding_standard);
-
-        //  Init colors
-        mSelectedTabForegroundColor = ContextCompat.getColor(getContext(), R.color.white);
-//        mUnSelectedTabForegroundColor = ContextCompat.getColor(getContext(), R.color.grey_medium);
-        mUnSelectedTabForegroundColor = ContextCompat.getColor(getContext(), R.color.white);
+        //  Transparant color
+        mTranspBGColor = ContextCompat.getColor(getContext(), android.R.color.transparent);
 
         //  Calculating widths
         mScreenWidth = GeneralUtils.getScreenWidthInPixels(getContext());
-        int inActiveMinWidth = getResources().getDimensionPixelOffset(R.dimen.inactive_view_min_width);
-        int activeMaxWidth =  getResources().getDimensionPixelOffset(R.dimen.active_view_max_width);
 
-        int remainingSpace =  mScreenWidth - (inActiveMinWidth * (MAX_TABS - 1));
+        updateVars();
+        calculateAndInitTabWidths();
 
-        //  All tabs share equal space
-        if(remainingSpace > activeMaxWidth)
-        {
-            mSelectedTabWidth = mScreenWidth / 5;
-            mUnSelectedTabWidth = mSelectedTabWidth;
-        }else
-        {
-            mSelectedTabWidth = remainingSpace;
-            mUnSelectedTabWidth = inActiveMinWidth;
-        }
+//        setBackgroundColor(ContextCompat.getColor(getContext(), R.color.primary));
+    }
 
-        setBackgroundColor(ContextCompat.getColor(getContext(), R.color.primary));
+    public void updateBottomTabCallback(OnBottomTabBarCallBack onBottomTabbarCallBack)
+    {
+        mOnBottomTabbarCallBack = onBottomTabbarCallBack;
     }
 
     /**
@@ -106,10 +112,21 @@ public class BottomBarLL extends LinearLayout implements View.OnClickListener{
      */
     public void addNewTab(String title, @DrawableRes int icon, boolean isSelected)
     {
+        if(mOnBottomTabbarCallBack == null)
+        {
+            throw new RuntimeException("Configure onBottomTabbarCallBack listener before adding tabs");
+        }
+
+        if(getChildCount() >= MAX_TABS){
+            throw new RuntimeException("Added more than max tabs");
+        }
+
         //  Create Tab item
-        BottomTabItem2 tabItem = new BottomTabItem2(getContext());
+        BottomTabItem tabItem = new BottomTabItem(getContext());
         tabItem.getTitleTV().setText(title);
         tabItem.getTitleIV().setImageResource(icon);
+
+        tabItem.setTag(R.id.tab_position, getChildCount());
 
         //  Add Tab item to this view
         addView(tabItem);
@@ -124,17 +141,20 @@ public class BottomBarLL extends LinearLayout implements View.OnClickListener{
         {
             updateLayoutForSelectedTab(tabItem, false);
         }else{
-            //  Add listener only if its not selected
-            tabItem.setOnClickListener(this);
+            updateLayoutForUnSelectedTab(tabItem, false);
         }
-
-        updateTabWidth(tabItem, isSelected);
+//        updateTabWidth(tabItem, isSelected);
     }
 
-    private void updateTabWidth(BottomTabItem2 bottomBarItemLL, boolean isActive)
+    /**
+     * Update Tab width
+     * @param tabItem   The Tab item
+     * @param isSelected  if its selected or not
+     */
+    private void updateTabWidth(BottomTabItem tabItem, boolean isSelected)
     {
-        LayoutParams layoutParams = (LayoutParams) bottomBarItemLL.getLayoutParams();
-        if(isActive)
+        LayoutParams layoutParams = (LayoutParams) tabItem.getLayoutParams();
+        if(isSelected)
         {
             layoutParams.width = mSelectedTabWidth;
         }else
@@ -142,43 +162,71 @@ public class BottomBarLL extends LinearLayout implements View.OnClickListener{
             layoutParams.width = mUnSelectedTabWidth;
         }
 
-        bottomBarItemLL.setLayoutParams(layoutParams);
+        tabItem.setLayoutParams(layoutParams);
     }
 
-    private void updateTabWidthWithAnim(BottomTabItem2 bottomBarItemLL, boolean isSelected)
+    /**
+     * Update the tab width with applying animation.
+     * @param tabItem   The tab item
+     * @param isSelected    if is selected or not
+     */
+    private void updateTabWidthWithAnim(BottomTabItem tabItem, boolean isSelected)
     {
         if(isSelected)
         {
-            AnimationUtils.widthValueAnimator(bottomBarItemLL,
+            AnimationUtils.widthValueAnimator(tabItem,
                     mUnSelectedTabWidth, mSelectedTabWidth, ANIM_DURATION);
         }else
         {
-            AnimationUtils.widthValueAnimator(bottomBarItemLL,
+            AnimationUtils.widthValueAnimator(tabItem,
                     mSelectedTabWidth, mUnSelectedTabWidth, ANIM_DURATION);
         }
     }
 
-    private void selectTab(BottomTabItem2 newTab)
+    /**
+     * Selects ( applies layout changes ) the tab passed in Param.
+     * Updates the old tab with unselected state.
+     *
+     *  @param newTab The new tab which is selected.
+     */
+    private void selectTab(BottomTabItem newTab)
     {
-        BottomTabItem2 oldTab = getOldTab();
+        int newTabPosition = getTabPosition(newTab);
+        mOnBottomTabbarCallBack.onTabSelected(newTabPosition);
+
+        BottomTabItem oldTab = getOldTab();
 
         //  Update old tab
-        updateLayoutForUnSelectedTab(oldTab);
+        updateLayoutForUnSelectedTab(oldTab, true);
 
         //  Update new tab
         updateLayoutForSelectedTab(newTab, true);
+    }
+
+
+    /**
+     *
+     * Selects the tab at position. Can be used along with  ViewPager.
+     * Updates the old tab with unselected state.
+     *
+     *  @param position The position of new tab which is selected.
+     */
+    public void selectTab(int position)
+    {
+        BottomTabItem newTab = (BottomTabItem)getChildAt(position);
+
+        selectTab(newTab);
     }
 
     /**
      * Does all the props update, calls methods to set new widths and handles some animations
      * @param newTab    The new Tab which is selected.
      */
-    private void updateLayoutForSelectedTab(BottomTabItem2 newTab, boolean shouldAnimate){
+    private void updateLayoutForSelectedTab(BottomTabItem newTab, boolean shouldAnimate){
         //  Update new tab
-        newTab.setTag(TAG_I_AM_SELECTED);
+        newTab.setTag(R.id.tab_selected, TAG_I_AM_SELECTED);
 
         ImageView tabIV = newTab.getTitleIV();
-
         //  Color
         tabIV.setColorFilter( mSelectedTabForegroundColor);
 
@@ -186,22 +234,17 @@ public class BottomBarLL extends LinearLayout implements View.OnClickListener{
         {
             updateTabWidthWithAnim(newTab, true);
 
-            //  Update padding for icon
+                //  Update padding for icon
             AnimationUtils.paddingTopValueAnimator(newTab.getTitleIV(), mUnSelectedTabTopPadding,
                     mSelectedTabTopPadding, ANIM_DURATION);
 
             //  Alpha animation
-            AnimationUtils.alphaValueAnimator(newTab.getTitleIV(), 0.5f, 1, ANIM_DURATION);
-            AnimationUtils.alphaValueAnimator(newTab.getTitleTV(), 0.5f, 1, ANIM_DURATION);
+            AnimationUtils.alphaValueAnimator(newTab.getTitleIV(), mUnSelectedAlpha, mSelectedAlpha, ANIM_DURATION);
+            AnimationUtils.alphaValueAnimator(newTab.getTitleTV(), mUnSelectedAlpha, mSelectedAlpha, ANIM_DURATION);
 
-//            AnimationUtils.colorFilterValueAnimator( newTab.getTitleIV(),
-//                    mUnSelectedTabForegroundColor,
-//                    mSelectedTabForegroundColor,
-//                    ANIM_DURATION);
         }else
         {
             updateTabWidth(newTab, true);
-
             tabIV.setPadding(tabIV.getPaddingStart(),
                     mSelectedTabTopPadding, tabIV.getPaddingEnd(), tabIV.getPaddingBottom());
 
@@ -210,56 +253,73 @@ public class BottomBarLL extends LinearLayout implements View.OnClickListener{
         newTab.getTitleTV().setVisibility(VISIBLE);
         newTab.getTitleTV().setTextColor(mSelectedTabForegroundColor);
 
-//        newTab.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.primary));
+        newTab.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.primary));
+        if(isDarkTheme)
+        {
+            newTab.setBackgroundColor(mTranspBGColor);
+        }
 
         //  Remove listener to avoid multiple Selects
         newTab.setOnClickListener(null);
-
     }
 
     /**
      * Does all the props update, calls methods to set new widths and handles some animations
      * @param oldTab    The old Tab which was previously selected.
      */
-    private void updateLayoutForUnSelectedTab(BottomTabItem2 oldTab){
+    private void updateLayoutForUnSelectedTab(BottomTabItem oldTab, boolean shouldAnimate){
 
         //  Update old tab
         if(oldTab != null){
-            oldTab.setTag(null);
-
-            updateTabWidthWithAnim(oldTab, false);
-
-            AnimationUtils.paddingTopValueAnimator(oldTab.getTitleIV(), mSelectedTabTopPadding,
-                    mUnSelectedTabTopPadding, ANIM_DURATION);
-
-            //  Color animation
-//            AnimationUtils.colorFilterValueAnimator( oldTab.getTitleIV(),
-//                    mSelectedTabForegroundColor,
-//                    mUnSelectedTabForegroundColor,
-//                    ANIM_DURATION);
-
+            oldTab.setTag(R.id.tab_selected, null);
 
             ImageView tabIV = oldTab.getTitleIV();
+
+            if(shouldAnimate)
+            {
+                //  ANIM
+                updateTabWidthWithAnim(oldTab, false);
+                AnimationUtils.paddingTopValueAnimator(tabIV, mSelectedTabTopPadding,
+                        mUnSelectedTabTopPadding, ANIM_DURATION);
+                //  Alpha animation
+                AnimationUtils.alphaValueAnimator(tabIV, mSelectedAlpha, mUnSelectedAlpha, ANIM_DURATION);
+
+            }else
+            {
+                //  ANIM
+                updateTabWidth(oldTab, false);
+                tabIV.setPadding(oldTab.getPaddingStart(),
+                        mUnSelectedTabTopPadding,
+                        oldTab.getPaddingEnd(),
+                        oldTab.getPaddingBottom());
+                tabIV.setAlpha(mUnSelectedAlpha);
+            }
+
             tabIV.setColorFilter(mUnSelectedTabForegroundColor);
 
-            //  Alpha animation
-            AnimationUtils.alphaValueAnimator(tabIV, 1f, 0.7f, ANIM_DURATION);
-            AnimationUtils.alphaValueAnimator(oldTab.getTitleTV(), 1f, 0, ANIM_DURATION);
+            oldTab.getTitleTV().setVisibility(hasFixedTabs ? VISIBLE : GONE);
+            oldTab.getTitleTV().setTextColor(mUnSelectedTabForegroundColor);
 
-//            oldTab.getTitleTV().setVisibility(GONE);
-//            oldTab.getTitleTV().setTextColor(mUnSelectedTabForegroundColor);
-
-//            oldTab.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
+            oldTab.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
+            if(isDarkTheme)
+            {
+                oldTab.setBackgroundColor(mTranspBGColor);
+            }
 
             //  Update click listener to listen to tab select
             oldTab.setOnClickListener(this);
         }
     }
 
-    private  @Nullable BottomTabItem2 getOldTab() {
+
+    /**
+     * @return the previously selected tab. can be null, if nothing is selected by then??
+     */
+    @Nullable
+    private BottomTabItem getOldTab() {
 
         for (int index = 0; index < getChildCount(); index++){
-            BottomTabItem2 tab = (BottomTabItem2) getChildAt(index);
+            BottomTabItem tab = (BottomTabItem) getChildAt(index);
 
             if(isTabSelected(tab))
             {
@@ -270,19 +330,176 @@ public class BottomBarLL extends LinearLayout implements View.OnClickListener{
         return null;
     }
 
+
+    /**
+     * @return the previously selected tab. can be null, if nothing is selected by then??
+     */
+    @Nullable
+    private int getTabPosition(BottomTabItem tabItem) {
+        return  (int)tabItem.getTag(R.id.tab_position);
+    }
+
     /**
      * Method to check if the tab is in selected state based on the Tag
      * @param tabItem   Tab item to check
      * @return  true if it is selected
      */
-    private boolean isTabSelected(BottomTabItem2 tabItem){
-        String tag = (String)tabItem.getTag();
+    private boolean isTabSelected(BottomTabItem tabItem){
+        String tag = (String)tabItem.getTag(R.id.tab_selected);
         return !TextUtils.isEmpty(tag) &&
                 tag.equalsIgnoreCase(TAG_I_AM_SELECTED);
     }
 
+    /**
+     * Calculate the tab widths based on configuration and Screen widths.
+     */
+    private void calculateAndInitTabWidths()
+    {
+        int noOfTabs = getNoOfTabs();
+
+        //  Init all tabs with equal width
+        mSelectedTabWidth = mScreenWidth / noOfTabs;
+        mUnSelectedTabWidth = mSelectedTabWidth;
+
+        int inActiveMinWidth = getResources().getDimensionPixelOffset(R.dimen.inactive_view_min_width);
+        int activeMaxWidth =  getResources().getDimensionPixelOffset(R.dimen.active_view_max_width);
+
+        int remainingSpace =  mScreenWidth - (inActiveMinWidth * (noOfTabs - 1));
+
+        //  If config does not say fixed width and remaining space is less than guideline max width,
+        //  Assign Selected width with remaining space.
+        if(!hasFixedTabs &&
+                remainingSpace <= activeMaxWidth)
+        {
+            mSelectedTabWidth = remainingSpace;
+            mUnSelectedTabWidth = inActiveMinWidth;
+        }
+    }
+
+    /**
+     *
+     * Checks the number children (tabs).
+     * If there are no children assumes {@link BottomBarLL#MAX_TABS} as no of tabs.
+     *
+     * @return number of tabs for this layout.
+     */
+    private int getNoOfTabs()
+    {
+        if(getChildCount() > 0)
+        {
+            return getChildCount();
+        }
+
+        return MAX_TABS;
+    }
+
+    /**
+     * Update variables based on the theme selected.
+     */
+    private void updateVars()
+    {
+        //  Init PADDINGS
+        mSelectedTabTopPadding = getResources().getDimensionPixelSize(R.dimen.padding_short);
+        mUnSelectedTabTopPadding = getResources().getDimensionPixelSize(R.dimen.padding_standard);
+
+        //  If it has fixed tabs, Top padding never change and its always short.
+        if(hasFixedTabs)
+        {
+            mUnSelectedTabTopPadding = mSelectedTabTopPadding;
+        }
+
+        //  Colors
+        mSelectedTabForegroundColor = ContextCompat.getColor(getContext(), R.color.white);
+        mUnSelectedTabForegroundColor = ContextCompat.getColor(getContext(), R.color.grey_medium);
+        if(isDarkTheme)
+        {
+            //  Init colors
+            mUnSelectedTabForegroundColor = mSelectedTabForegroundColor;
+        }
+
+        //  Navigation bar background color
+        int bottomBarBGColor = ContextCompat.getColor(getContext(), R.color.white);
+        if(isDarkTheme)
+        {
+            bottomBarBGColor = ContextCompat.getColor(getContext(), R.color.primary);
+        }
+        setBackgroundColor(bottomBarBGColor);
+    }
+
     @Override
     public void onClick(View view) {
-        selectTab((BottomTabItem2)view);
+        selectTab((BottomTabItem)view);
+    }
+
+    //  --  CONFIGS
+
+    /**
+     * Update the tabs as fixed widths.
+     */
+    public void setAsFixedTabs()
+    {
+        hasFixedTabs = true;
+
+        calculateAndInitTabWidths();
+        updateVars();
+
+        invalidate();
+    }
+
+    /**
+     * Update the tabs as Shifting widths. Like the google designs
+     */
+    public void setAsShiftingTabs()
+    {
+        hasFixedTabs = false;
+
+        calculateAndInitTabWidths();
+        updateVars();
+
+        invalidate();
+    }
+
+    /**
+     * Applies dark theme to background of nav bar
+     */
+    public void enableDarkTheme()
+    {
+        isDarkTheme = true;
+
+        updateVars();
+
+        invalidate();
+    }
+
+    /**
+     * Disables dark theme.
+     */
+    public void disableDarkTheme()
+    {
+        isDarkTheme = false;
+
+        updateVars();
+
+        invalidate();
+    }
+
+    @Override
+    public void invalidate() {
+        super.invalidate();
+
+        //  Hacky way - Have to look for a better soln
+        int count = getChildCount();
+        for(int childIndex = 0; childIndex < count; childIndex++){
+
+            BottomTabItem tabItem = (BottomTabItem) getChildAt(childIndex);
+
+            if(isTabSelected(tabItem))
+            {
+                updateLayoutForSelectedTab(tabItem, true);
+            }else
+            {
+                updateLayoutForUnSelectedTab(tabItem, true);
+            }
+        }
     }
 }

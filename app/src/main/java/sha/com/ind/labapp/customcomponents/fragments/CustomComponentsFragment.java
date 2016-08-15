@@ -10,6 +10,8 @@ import sha.com.ind.labapp.R;
 import sha.com.ind.labapp.base.BaseActivity;
 import sha.com.ind.labapp.base.BaseListFragment;
 import sha.com.ind.labapp.home.adapters.GenericListAdapter;
+import sha.com.ind.labapp.manager.ActivityManagerUtils;
+import sha.com.ind.labapp.tabs.bottombar.BottomBarListActivity;
 import sha.com.ind.labapp.utils.FragmentManagerUtils;
 
 /**
@@ -65,6 +67,11 @@ public class CustomComponentsFragment extends BaseListFragment {
                         CoundownTimerButtonFragment.getInstance(),
                         CoundownTimerButtonFragment.TAG,
                         FragmentManagerUtils.Animation.SLIDE_IN_RIGHT);
+                break;
+
+            // Bottom navigation fragment
+            case 3 :
+                ActivityManagerUtils.startActivity(getActivity() , BottomBarListActivity.class);
                 break;
         }
     }

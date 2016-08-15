@@ -20,6 +20,7 @@ public class BottomBarListActivity extends BaseActivity {
         setContentView(R.layout.activity_generic);
 
         setupActionBar(R.string.app_name);
+        enableDisplayHomeasUp();
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, BottomBarListFragment.getInstance())

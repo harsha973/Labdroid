@@ -49,11 +49,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/bottom_navigation_mat"/>
 
-        <activity android:name=".tabs.bottombar.CustomBottomBarActivity"
+        <activity android:name=".archive.activities.CustomBottomBarActivityTrash"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/bottom_navigation_custom"/>
 
-        <activity android:name=".tabs.bottombar.CustomBottomBarActivity2"
+        <activity android:name=".tabs.bottombar.CustomBottomBarActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/bottom_navigation_custom"/>
 

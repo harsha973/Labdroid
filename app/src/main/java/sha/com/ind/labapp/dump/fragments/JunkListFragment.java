@@ -62,13 +62,8 @@ public class JunkListFragment extends BaseListFragment {
                 ActivityManagerUtils.startActivity(getActivity() , TabViewPagerActivity.class);
                 break;
 
-            // Bottom navigation fragment
-            case 3 :
-                ActivityManagerUtils.startActivity(getActivity() , BottomBarListActivity.class);
-                break;
-
             // Transp Circle Frag
-            case 4 :
+            case 3 :
                 FragmentManagerUtils.replaceFragmentAndAddToBackStack(
                         (BaseActivity)getActivity(),
                         TranspCircleBLLFragment.newInstance(),

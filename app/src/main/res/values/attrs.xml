@@ -5,7 +5,7 @@
         <attr name="diameter" format="dimension"/>
     </declare-styleable>
 
-    <declare-styleable name="BottomTabItem">
+    <declare-styleable name="BottomTabItemTrash">
         <attr name="isActive" format="boolean"/>
     </declare-styleable>
 </resources>
