@@ -131,6 +131,13 @@ public class AnimationUtils {
         valueAnimator.start();
     }
 
+    /**
+     * Animates the width
+     * @param view  view to apply animation
+     * @param startWidth    Start at width
+     * @param endWidth  end at width
+     * @param duration  Total time of animation
+     */
     public static void widthValueAnimator(final View view, int startWidth, int endWidth, int duration)
     {
         ValueAnimator valueAnimator = ValueAnimator.ofInt(startWidth, endWidth);

@@ -9,7 +9,6 @@ import sha.com.ind.labapp.base.BaseActivity;
 import sha.com.ind.labapp.base.BaseListFragment;
 import sha.com.ind.labapp.home.adapters.GenericListAdapter;
 import sha.com.ind.labapp.manager.ActivityManagerUtils;
-import sha.com.ind.labapp.tabs.bottombar.BottomBarListActivity;
 import sha.com.ind.labapp.tabs.TabViewPagerActivity;
 import sha.com.ind.labapp.utils.FragmentManagerUtils;
 
@@ -68,6 +67,15 @@ public class JunkListFragment extends BaseListFragment {
                         (BaseActivity)getActivity(),
                         TranspCircleBLLFragment.newInstance(),
                         TranspCircleBLLFragment.TAG,
+                        FragmentManagerUtils.Animation.SLIDE_IN_RIGHT);
+                break;
+
+            // SectionModel header Frag
+            case 4 :
+                FragmentManagerUtils.replaceFragmentAndAddToBackStack(
+                        (BaseActivity)getActivity(),
+                        StickyHeaderFragment.newInstance(),
+                        StickyHeaderFragment.TAG,
                         FragmentManagerUtils.Animation.SLIDE_IN_RIGHT);
                 break;
         }

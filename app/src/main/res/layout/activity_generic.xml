@@ -5,8 +5,20 @@
 
     <include layout="@layout/toolbar"/>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fragment_container"/>
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/t_lannister"
+            android:scaleType="centerCrop"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_container"/>
+    </RelativeLayout>
+
 </LinearLayout>

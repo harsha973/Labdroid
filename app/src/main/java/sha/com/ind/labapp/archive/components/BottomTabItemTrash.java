@@ -209,14 +209,14 @@ public class BottomTabItemTrash extends LinearLayout {
 
     private void initWidths(){
 
-        mMaxWidth = getResources().getDimensionPixelSize(R.dimen.active_view_max_width);
-        mMinWidth = getResources().getDimensionPixelSize(R.dimen.active_view_min_width);
+        mMaxWidth = getResources().getDimensionPixelSize(R.dimen.active_bottom_tab_max_width);
+        mMinWidth = getResources().getDimensionPixelSize(R.dimen.active_bottom_tab_min_width);
 
 
         if(!isActive)
         {
 //            mMaxWidth = (screenWidth - mMaxWidth) / 4;
-            mMinWidth = getResources().getDimensionPixelSize(R.dimen.inactive_view_min_width);
+            mMinWidth = getResources().getDimensionPixelSize(R.dimen.inactive_bottom_tab_min_width);
 
         }
 

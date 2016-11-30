@@ -5,8 +5,8 @@
     android:paddingTop="@dimen/padding_standard"
     android:src="@drawable/ic_home_white_24dp"
     android:layout_gravity="center_horizontal"
-    android:minWidth="@dimen/bottom_menu"
-    android:minHeight="@dimen/bottom_menu"
+    android:minWidth="@dimen/bottom_tab_item_icon"
+    android:minHeight="@dimen/bottom_tab_item_icon"
     android:id="@+id/iv_sub_tab"/>
 
     <!--android:layout_width="@dimen/bottom_menu"-->

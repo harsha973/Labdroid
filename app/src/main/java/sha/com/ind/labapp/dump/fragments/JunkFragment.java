@@ -686,6 +686,4 @@ public class JunkFragment extends BaseFragment implements ActivityCompat.OnReque
         }
     }
 
-
-
 }

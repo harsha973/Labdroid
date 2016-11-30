@@ -1,7 +1,18 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 repositories {
     maven { url "https://jitpack.io" }
+    maven { url 'https://maven.fabric.io/public' }
 }
 
 android {
@@ -78,10 +89,20 @@ dependencies {
     //  Helpers for Collections
     compile 'com.google.guava:guava:19.0'
 
+    //  Sticky header in list
+    compile 'org.zakariya.stickyheaders:stickyheaders:0.7.5'
+
     // Force usage of support annotations in the test app, since it is internally used by the runner module.
     androidTestCompile 'com.android.support:support-annotations:24.0.0'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.1')
     androidTestCompile('com.android.support.test:runner:0.4')
     // Set this dependency to use JUnit 4 rules
     androidTestCompile('com.android.support.test:rules:0.4')
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.2@aar') {
+        transitive = true;
+    }
+
+    if (project.hasProperty("MyProject.signing") && new File(project.property("MyProject.signing") + ".gradle").exists()) {
+        apply from: project.property("MyProject.signing") + ".gradle";
+    }
 }

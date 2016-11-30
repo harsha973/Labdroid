@@ -9,9 +9,11 @@ import android.support.v4.view.ViewPager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import sha.com.ind.labapp.R;
 import sha.com.ind.labapp.base.BaseActivity;
-import sha.com.ind.labapp.custom.components.BottomBarLL;
+import sha.com.ind.labapp.custom.components.BottomNavigationTabBar;
 import sha.com.ind.labapp.tabs.bottombar.interfaces.OnBottomTabBarCallBack;
 import sha.com.ind.labapp.tabs.fragments.DemoTab2Fragment;
 
@@ -22,7 +24,7 @@ import sha.com.ind.labapp.tabs.fragments.DemoTab2Fragment;
  */
 public class CustomBottomBarActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener, OnBottomTabBarCallBack {
 
-    private BottomBarLL mBottomNavLL;
+    private BottomNavigationTabBar mBottomNavLL;
     private ViewPager mViewPager;
 
     private static final int MAX_TAB_COUNT = 5;
@@ -30,12 +32,13 @@ public class CustomBottomBarActivity extends BaseActivity implements CompoundBut
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
 
         setContentView(R.layout.activity_bottom_bar_custom2);
         setupActionBar(R.string.bottom_navigation_custom);
         enableDisplayHomeasUp();
 
-        mBottomNavLL = (BottomBarLL) findViewById(R.id.ll_bottom_nav);
+        mBottomNavLL = (BottomNavigationTabBar) findViewById(R.id.ll_bottom_nav);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
 
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), "title");

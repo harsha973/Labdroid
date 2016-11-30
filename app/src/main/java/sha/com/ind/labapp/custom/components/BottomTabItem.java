@@ -2,7 +2,6 @@ package sha.com.ind.labapp.custom.components;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -16,7 +15,7 @@ import sha.com.ind.labapp.R;
 /**
  * Created by sreepolavarapu on 10/08/16.
  *
- * Represents a tab in bottom tab bar. It is used along with {@link BottomBarLL}
+ * Represents a tab in bottom tab bar. It is used along with {@link BottomNavigationTabBar}
  */
 public class BottomTabItem extends LinearLayout {
 

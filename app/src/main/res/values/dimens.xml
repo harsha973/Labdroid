@@ -47,13 +47,13 @@
     <dimen name="dp_100">100dp</dimen>
 
     <!--Image size-->
-    <dimen name="bottom_menu">24dp</dimen>
+    <dimen name="bottom_tab_item_icon">24dp</dimen>
 
     <!--bottom bar-->
     <dimen name="bottom_bar_height">56dp</dimen>
-    <dimen name="inactive_view_min_width">56dp</dimen>
-    <dimen name="inactive_view_max_width">96dp</dimen>
-    <dimen name="active_view_min_width">96dp</dimen>
-    <dimen name="active_view_max_width">168dp</dimen>
+    <dimen name="inactive_bottom_tab_min_width">56dp</dimen>
+    <dimen name="inactive_bottom_tab_max_width">96dp</dimen>
+    <dimen name="active_bottom_tab_min_width">96dp</dimen>
+    <dimen name="active_bottom_tab_max_width">168dp</dimen>
 
 </resources>

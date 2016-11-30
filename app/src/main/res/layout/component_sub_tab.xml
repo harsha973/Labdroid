@@ -7,8 +7,8 @@
     android:paddingBottom="@dimen/padding_10dp">
 
     <ImageView
-        android:layout_width="@dimen/bottom_menu"
-        android:layout_height="@dimen/bottom_menu"
+        android:layout_width="@dimen/bottom_tab_item_icon"
+        android:layout_height="@dimen/bottom_tab_item_icon"
         android:layout_marginBottom="@dimen/margin_short"
         android:src="@drawable/ic_home_white_24dp"
         android:layout_gravity="center_horizontal"

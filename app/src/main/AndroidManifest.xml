@@ -49,9 +49,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/bottom_navigation_mat"/>
 
-        <activity android:name=".archive.activities.CustomBottomBarActivityTrash"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/bottom_navigation_custom"/>
 
         <activity android:name=".tabs.bottombar.CustomBottomBarActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -67,6 +64,9 @@
                 android:resource="@xml/filepaths"/>
         </provider>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="9ef832269a52be13e060da66673dd2da1ffd0e5a" />
     </application>
 
 </manifest>

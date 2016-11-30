@@ -45,5 +45,30 @@
         <item>Recycler</item>
         <item>Viewpager and tabs</item>
         <item>Transp circle LL</item>
+        <item>Sticky header</item>
     </string-array>
+
+    <string-array name="names">
+        <item>Bret Capito</item>
+        <item>Eleni Eastely</item>
+        <item>Kathy Rising</item>
+        <item>Myong Belding</item>
+        <item>Tracee Philson</item>
+        <item>Misti Climer</item>
+        <item>Leida Blaise</item>
+        <item>Jerilyn Siciliano</item>
+        <item>Megan Galloway</item>
+        <item>Sang Wymore</item>
+        <item>Kary Whitbeck</item>
+        <item>Ute Matteo</item>
+        <item>Melanie Farkas</item>
+        <item>Christen Ownbey</item>
+        <item>Nicole Loggins</item>
+        <item>Nicky Rapier</item>
+        <item>Vella Ponton</item>
+        <item>Justin Deaver</item>
+        <item>Warren Bevil</item>
+        <item>Anissa Cremin</item>
+    </string-array>
+
 </resources>
