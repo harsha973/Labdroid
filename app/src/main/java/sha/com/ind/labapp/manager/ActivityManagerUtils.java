@@ -38,6 +38,31 @@ public class ActivityManagerUtils {
      * 				{@link EnterAnimation} for {@link sha.com.ind.labapp.base.BaseActivity} to enter.
      * 				Can specify {@link EnterAnimation#NONE}
      */
+    public static void startActivityWithExtras(Context context,
+                                     Class clazz,
+                                     Bundle bundle,
+                                     @EnterAnimation int enterAnimation,
+                                     @ExitAnimation int exitAnim)
+    {
+        bundle.putInt(Constants.KEY_ACTIVITY_EXIT_ANIMATION, exitAnim);
+
+        Intent intent = new Intent(context, clazz);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+
+        startActivityWithAnim(context, intent, enterAnimation);
+    }
+
+    /**
+     * Starts the Intent with the animation specified.
+     * @param context
+     * 				The context from which it is being called
+     * @param clazz
+     * 				Activity Class to start
+     * @param enterAnimation
+     * 				{@link EnterAnimation} for {@link sha.com.ind.labapp.base.BaseActivity} to enter.
+     * 				Can specify {@link EnterAnimation#NONE}
+     */
     public static void startActivity(Context context,
                                      Class clazz,
                                      @EnterAnimation int enterAnimation,
@@ -48,6 +73,22 @@ public class ActivityManagerUtils {
 
         Intent intent = new Intent(context, clazz);
         intent.putExtras(bundle);
+        context.startActivity(intent);
+
+        startActivityWithAnim(context, intent, enterAnimation);
+    }
+
+    /**
+     * Starts the Intent with the animation specified.
+     * @param context
+     * 				The context from which it is being called
+     * @param intent
+     * 				Intent used to start ativity
+     * @param enterAnimation
+     * 				{@link EnterAnimation} for {@link BaseActivity} to enter. Can specify {@link EnterAnimation#NONE}
+     */
+    private static void startActivityWithAnim(Context context, Intent intent, @EnterAnimation int enterAnimation)
+    {
         context.startActivity(intent);
 
         if(context instanceof BaseActivity)
@@ -68,6 +109,7 @@ public class ActivityManagerUtils {
                     break;
             }
         }
+
     }
 
     /*

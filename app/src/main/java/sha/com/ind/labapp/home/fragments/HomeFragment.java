@@ -1,4 +1,4 @@
-package sha.com.ind.labapp.home;
+package sha.com.ind.labapp.home.fragments;
 
 import android.os.Bundle;
 import android.view.View;

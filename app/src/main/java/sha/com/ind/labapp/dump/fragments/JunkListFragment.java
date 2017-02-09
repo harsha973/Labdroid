@@ -78,6 +78,15 @@ public class JunkListFragment extends BaseListFragment {
                         StickyHeaderFragment.TAG,
                         FragmentManagerUtils.Animation.SLIDE_IN_RIGHT);
                 break;
+
+            // Finger print auth Frag
+            case 5 :
+                FragmentManagerUtils.replaceFragmentAndAddToBackStack(
+                        (BaseActivity)getActivity(),
+                        FingerPrintSettingsFragment.newInstance(),
+                        FingerPrintSettingsFragment.TAG,
+                        FragmentManagerUtils.Animation.SLIDE_IN_RIGHT);
+                break;
         }
     }
 }

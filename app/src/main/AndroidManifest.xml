@@ -4,6 +4,8 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
@@ -53,6 +55,10 @@
         <activity android:name=".tabs.bottombar.CustomBottomBarActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/bottom_navigation_custom"/>
+
+         <activity android:name=".other.fingerprint.FingerprintActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/lock_screen"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

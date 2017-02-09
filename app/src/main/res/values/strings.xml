@@ -7,7 +7,18 @@
     <string name="bottom_navigation_libs">Bottom navigation different libs</string>
     <string name="custom_components">Custom Components</string>
     <string name="dump">Dump</string>
+    <string name="enable_fingerprint">Enable finger print</string>
     <string name="error_low_storage">Camera cannot be started due to low device storage</string>
+    <string name="fingerprint_description">Confirm fingerprint to continue</string>
+    <string name="fingerprint_hint">Touch sensor</string>
+    <string name="fingerprint_not_recognized">Fingerprint not recognized. Try again</string>
+    <string name="fingerprint_success">Fingerprint recognized</string>
+    <string name="no_fingerprint_hardware">This device does not have fingerprint scanning hardware,\nwhich is required for this app</string>
+    <string name="no_fingerprints_enrolled">You do not have any fingerprints set up on this device.</string>
+    <string name="identification_failed">Identification failed</string>
+    <string name="lock_screen">Lock screen</string>
+    <string name="scan_now">Please scan your fingerprint…</string>
+    <string name="validation_error">Fingerprint validation failed</string>
     <string name="media">Media</string>
     <string name="crop_BG">Transp circle LL</string>
     <string name="tab_replaced">Tab replaced</string>
@@ -46,6 +57,7 @@
         <item>Viewpager and tabs</item>
         <item>Transp circle LL</item>
         <item>Sticky header</item>
+        <item>Finger print authentication</item>
     </string-array>
 
     <string-array name="names">

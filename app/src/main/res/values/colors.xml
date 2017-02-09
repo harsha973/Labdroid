@@ -23,4 +23,7 @@
     <color name="grey_medium">#808080</color>
     <color name="grey_light">#C9C9C9</color>
     <color name="grey_lightest">#F8F8F8</color>
+
+    <color name="finger_print_hint_color">#42000000</color>
+    <color name="finger_print_success_color">#009688</color>
 </resources>
