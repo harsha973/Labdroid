@@ -20,6 +20,7 @@ import sha.com.ind.labapp.utils.Constants;
  */
 public class BaseActivity extends AppCompatActivity {
 
+
     /**
      * Used as an exit navigation
      * This should be one of the {@link android.support.annotation.IntDef} in {@link ActivityManagerUtils.ExitAnimation}.
