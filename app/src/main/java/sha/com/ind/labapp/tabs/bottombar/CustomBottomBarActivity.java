@@ -14,7 +14,7 @@ import io.fabric.sdk.android.Fabric;
 import sha.com.ind.labapp.R;
 import sha.com.ind.labapp.base.BaseActivity;
 import sha.com.ind.labapp.custom.components.BottomNavigationTabBar;
-import sha.com.ind.labapp.tabs.bottombar.interfaces.OnBottomTabBarCallBack;
+import sha.com.ind.labapp.tabs.bottombar.interfaces.OnBottomTabbarCallBack;
 import sha.com.ind.labapp.tabs.fragments.DemoTab2Fragment;
 
 /**
@@ -22,7 +22,7 @@ import sha.com.ind.labapp.tabs.fragments.DemoTab2Fragment;
  *
  * Activity to demo the Bottom nav bar
  */
-public class CustomBottomBarActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener, OnBottomTabBarCallBack {
+public class CustomBottomBarActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener, OnBottomTabbarCallBack {
 
     private BottomNavigationTabBar mBottomNavLL;
     private ViewPager mViewPager;

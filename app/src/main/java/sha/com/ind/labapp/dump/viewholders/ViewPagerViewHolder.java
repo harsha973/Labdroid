@@ -1,6 +1,5 @@
 package sha.com.ind.labapp.dump.viewholders;
 
-import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.view.ViewGroup;
 
@@ -14,8 +13,8 @@ public class ViewPagerViewHolder extends BaseRecylerViewHolder{
 
     private ViewPager mViewPager;
 
-    public ViewPagerViewHolder(Context context, ViewGroup parent, int layoutResID) {
-        super(context, parent, layoutResID);
+    public ViewPagerViewHolder(ViewGroup parent) {
+        super(parent, R.layout.list_item_view_pager);
         mViewPager = (ViewPager)itemView.findViewById(R.id.vp_list_item);
     }
 

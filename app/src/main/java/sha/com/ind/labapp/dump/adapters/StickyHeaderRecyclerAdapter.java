@@ -10,7 +10,7 @@ import org.zakariya.stickyheaders.SectioningAdapter;
 import java.util.ArrayList;
 
 import sha.com.ind.labapp.R;
-import sha.com.ind.labapp.dump.models.BaseItemViewModel;
+import sha.com.ind.labapp.dump.models.BaseViewModel;
 import sha.com.ind.labapp.dump.models.NamesModel;
 import sha.com.ind.labapp.dump.models.RecyclerHeaderModel;
 import sha.com.ind.labapp.dump.models.SectionModel;
@@ -95,7 +95,7 @@ public class StickyHeaderRecyclerAdapter extends SectioningAdapter {
         }
     }
 
-    private BaseItemViewModel getItem(int sectionIndex, int itemIndex)
+    private BaseViewModel getItem(int sectionIndex, int itemIndex)
     {
         return mSectionModelArrayList.get(sectionIndex).getSectionSubListNames().get(itemIndex);
     }

@@ -8,11 +8,11 @@ import java.util.Random;
 /**
  * Created by sreepolavarapu on 15/06/16.
  */
-public class ViewPagerModel{
+public class ViewPagerViewModel extends BaseViewModel{
 
     ArrayList<String> stringsAL;
 
-    public ViewPagerModel()
+    public ViewPagerViewModel()
     {
         stringsAL = new ArrayList<>();
         int maxSize = new Random(20).nextInt();

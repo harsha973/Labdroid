@@ -102,9 +102,9 @@ public class ActivityManagerUtils {
                 case EnterAnimation.FADE_IN:
                     activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     break;
-                case EnterAnimation.ZOOM_IN:
-                    activity.overridePendingTransition(R.anim.zoom_in, android.R.anim.fade_out);
-                    break;
+//                case EnterAnimation.ZOOM_IN:
+//                    activity.overridePendingTransition(R.anim.zoom_in, android.R.anim.fade_out);
+//                    break;
                 case EnterAnimation.NONE:
                     break;
             }
@@ -115,22 +115,22 @@ public class ActivityManagerUtils {
     /*
      * Inner classes, interfaces, enums
      */
-    @IntDef( {EnterAnimation.SLIDE_IN_RIGHT, EnterAnimation.FADE_IN, EnterAnimation.NONE, EnterAnimation.ZOOM_IN} )
+    @IntDef( {EnterAnimation.SLIDE_IN_RIGHT, EnterAnimation.FADE_IN, EnterAnimation.NONE/**, EnterAnimation.ZOOM_IN*/} )
     @Retention(RetentionPolicy.SOURCE)
     public @interface EnterAnimation {
 
         int NONE = 0;
         int FADE_IN = 1;
         int SLIDE_IN_RIGHT = 2;
-        int ZOOM_IN = 3;
+//        int ZOOM_IN = 3;
     }
 
-    @IntDef( {ExitAnimation.SLIDE_OUT_RIGHT, ExitAnimation.NONE, ExitAnimation.ZOOM_OUT} )
+    @IntDef( {ExitAnimation.SLIDE_OUT_RIGHT, ExitAnimation.NONE/**, ExitAnimation.ZOOM_OUT*/} )
     @Retention(RetentionPolicy.SOURCE)
     public @interface ExitAnimation{
 
         int NONE = 0;
         int SLIDE_OUT_RIGHT = 1;
-        int ZOOM_OUT = 2;
+//        int ZOOM_OUT = 2;
     }
 }

@@ -20,18 +20,18 @@ import sha.com.ind.labapp.utils.SharedPrefsUtils;
 /**
  * Created by sreepolavarapu on 7/02/17.
  */
-public class FingerPrintSettingsFragment extends BaseFragment {
+public class FingerprintSettingsFragment extends BaseFragment {
 
-    public static final String TAG = FingerPrintSettingsFragment.class.getSimpleName();
+    public static final String TAG = FingerprintSettingsFragment.class.getSimpleName();
 
     @BindView(R.id.switch_fingerprint)
     Switch fingerPrintSwitch;
 
-    public static FingerPrintSettingsFragment newInstance() {
+    public static FingerprintSettingsFragment newInstance() {
         
         Bundle args = new Bundle();
-        
-        FingerPrintSettingsFragment fragment = new FingerPrintSettingsFragment();
+
+        FingerprintSettingsFragment fragment = new FingerprintSettingsFragment();
         fragment.setArguments(args);
         return fragment;
     }

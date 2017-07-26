@@ -1,6 +1,9 @@
 package sha.com.ind.labapp.base;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -10,6 +13,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import sha.com.ind.labapp.R;
 import sha.com.ind.labapp.manager.ActivityManagerUtils;
@@ -19,7 +25,6 @@ import sha.com.ind.labapp.utils.Constants;
  * Created by sreepolavarapu on 18/12/15.
  */
 public class BaseActivity extends AppCompatActivity {
-
 
     /**
      * Used as an exit navigation
@@ -130,9 +135,9 @@ public class BaseActivity extends AppCompatActivity {
             case ActivityManagerUtils.ExitAnimation.SLIDE_OUT_RIGHT:
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 break;
-            case ActivityManagerUtils.ExitAnimation.ZOOM_OUT:
-                overridePendingTransition(R.anim.zoom_out, R.anim.no_animation);
-                break;
+//            case ActivityManagerUtils.ExitAnimation.ZOOM_OUT:
+//                overridePendingTransition(R.anim.zoom_out, R.anim.no_animation);
+//                break;
             case ActivityManagerUtils.ExitAnimation.NONE:
             default:
                 break;

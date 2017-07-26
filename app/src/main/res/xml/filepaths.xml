@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
     <files-path path="images/" name="myimages" />
+    <files-path name="receipts_internal" path="receipts/" />
+    <external-files-path name="receipts_share_file_path" path="receipts/" />
+    <external-cache-path name="receipts_share_cache_path" path="receipts/" />
+    <external-path name="receipts_share_path" path="receipts/" />
+    <!--<cache-path name="receipts" path="receipts/" />-->
+
 </paths>

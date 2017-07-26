@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card_view"
-    android:layout_gravity="center"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?selectableItemBackground"
-    app:elevation="@dimen/elevation_2dp"
-    app:cardUseCompatPadding="true"
-    app:cardBackgroundColor="@android:color/white">
-
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:background="?selectableItemBackground"
+    android:orientation="horizontal">
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:background="@drawable/selectablebackground"
         android:id="@+id/tv_list_item_recyler_default"
         android:padding="@dimen/padding_standard" />
 
-</android.support.v7.widget.CardView>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_add"
+        android:padding="@dimen/padding_standard"
+        android:id="@+id/ib_add_recycler_item"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        android:padding="@dimen/padding_standard"
+        android:id="@+id/ib_remove_recycler_item"/>
+</LinearLayout>
+

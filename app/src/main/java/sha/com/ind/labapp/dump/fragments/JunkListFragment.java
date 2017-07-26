@@ -51,8 +51,8 @@ public class JunkListFragment extends BaseListFragment {
 
                 FragmentManagerUtils.replaceFragmentAndAddToBackStack(
                         (BaseActivity)getActivity(),
-                        RecylerJunkFragment.getInstance(),
-                        RecylerJunkFragment.TAG,
+                        RecyclerJunkFragment.getInstance(),
+                        RecyclerJunkFragment.TAG,
                         FragmentManagerUtils.Animation.SLIDE_IN_RIGHT);
                 break;
 
@@ -83,9 +83,25 @@ public class JunkListFragment extends BaseListFragment {
             case 5 :
                 FragmentManagerUtils.replaceFragmentAndAddToBackStack(
                         (BaseActivity)getActivity(),
-                        FingerPrintSettingsFragment.newInstance(),
-                        FingerPrintSettingsFragment.TAG,
+                        FingerprintSettingsFragment.newInstance(),
+                        FingerprintSettingsFragment.TAG,
                         FragmentManagerUtils.Animation.SLIDE_IN_RIGHT);
+                break;
+
+            // File share
+            case 6 :
+                FragmentManagerUtils.replaceFragmentAndAddToBackStack(
+                        (BaseActivity)getActivity(),
+                        FilesFragment.newInstance(),
+                        FilesFragment.TAG,
+                        FragmentManagerUtils.Animation.SLIDE_IN_RIGHT);
+                break;
+
+            // Dialog frag
+            case 7 :
+                DialogFragment dialogFragment = new DialogFragment();
+                dialogFragment.show(getFragmentManager(), "dialog-tag");
+
                 break;
         }
     }

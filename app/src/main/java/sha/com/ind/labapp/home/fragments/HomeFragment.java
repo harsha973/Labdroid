@@ -47,8 +47,8 @@ public class HomeFragment extends BaseListFragment{
 //                getFragmentManager().beginTransaction().add(R.id.container, JunkFragment.getInstance()).addToBackStack(null).commit();
                 ActivityManagerUtils.startActivity(getActivity() ,
                         JunkActivity.class,
-                        ActivityManagerUtils.EnterAnimation.ZOOM_IN,
-                        ActivityManagerUtils.ExitAnimation.ZOOM_OUT);
+                        ActivityManagerUtils.EnterAnimation.SLIDE_IN_RIGHT,
+                        ActivityManagerUtils.ExitAnimation.SLIDE_OUT_RIGHT);
 
                 break;
 

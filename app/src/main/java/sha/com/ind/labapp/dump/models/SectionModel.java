@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class SectionModel {
 
     private String mSectionName;
-    private ArrayList<BaseItemViewModel> sectionSubListNames;
+    private ArrayList<BaseViewModel> sectionSubListNames;
 
     public SectionModel(String sectionName)
     {
@@ -20,11 +20,11 @@ public class SectionModel {
         return mSectionName;
     }
 
-    public ArrayList<BaseItemViewModel> getSectionSubListNames() {
+    public ArrayList<BaseViewModel> getSectionSubListNames() {
         return sectionSubListNames;
     }
 
-    public void addSubListName(BaseItemViewModel baseItemViewModel) {
+    public void addSubListName(BaseViewModel baseItemViewModel) {
         sectionSubListNames.add(baseItemViewModel);
     }
 }

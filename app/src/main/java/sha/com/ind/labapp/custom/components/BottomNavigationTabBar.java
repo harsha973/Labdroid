@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import sha.com.ind.labapp.R;
-import sha.com.ind.labapp.tabs.bottombar.interfaces.OnBottomTabBarCallBack;
+import sha.com.ind.labapp.tabs.bottombar.interfaces.OnBottomTabbarCallBack;
 import sha.com.ind.labapp.utils.AnimationUtils;
 import sha.com.ind.labapp.utils.GeneralUtils;
 
@@ -55,7 +55,7 @@ public class BottomNavigationTabBar extends LinearLayout implements View.OnClick
     private boolean isDarkTheme;
 
     //  Callback
-    private OnBottomTabBarCallBack mOnBottomTabbarCallBack;
+    private OnBottomTabbarCallBack mOnBottomTabbarCallBack;
 
 
     public BottomNavigationTabBar(Context context) {
@@ -100,7 +100,7 @@ public class BottomNavigationTabBar extends LinearLayout implements View.OnClick
 //        setBackgroundColor(ContextCompat.getColor(getContext(), R.color.primary));
     }
 
-    public void updateBottomTabCallback(OnBottomTabBarCallBack onBottomTabbarCallBack)
+    public void updateBottomTabCallback(OnBottomTabbarCallBack onBottomTabbarCallBack)
     {
         mOnBottomTabbarCallBack = onBottomTabbarCallBack;
     }
